@@ -1,0 +1,301 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
+using System.Configuration;
+using PartsManager.Shared.DTOs;
+using PartsManager.Shared.Resources;
+using ClosedXML.Excel;
+
+namespace PartsManager.Client
+{
+    public partial class QueryForm : Form
+    {
+        private readonly ApiClient _apiClient;
+
+        public QueryForm()
+        {
+            InitializeComponent();
+            UIStyle.Apply(this);
+            I18nHelper.Apply(this); // 套用語系
+            
+            _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
+
+            // 根據使用者等級限制功能
+            //if (UserSession.UserLevel >= 4)
+            //{
+            //    menuEdit.Visible = false;
+            //    menuDelete.Visible = false;
+            //}
+
+            // 修正：防止沒有圖片時顯示 X，並設定自動縮放
+            Col_Att1.DefaultCellStyle.NullValue = null;
+            Col_Att1.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            Col_Att2.DefaultCellStyle.NullValue = null;
+            Col_Att2.ImageLayout = DataGridViewImageCellLayout.Zoom;
+
+            dgvResults.CellContentClick += dgvResults_CellContentClick;
+        }
+
+        private async void dgvResults_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            // 檢查是否點擊附件欄位
+            string colName = dgvResults.Columns[e.ColumnIndex].Name;
+            if (colName == "Col_Att1" || colName == "Col_Att2")
+            {
+                var material = dgvResults.Rows[e.RowIndex].DataBoundItem as SparePartSearchResultDto;
+                if (material == null) return;
+
+                int index = colName == "Col_Att1" ? 0 : 1;
+                if (material.AttachmentFileNames != null && material.AttachmentFileNames.Count > index)
+                {
+                    string fileName = material.AttachmentFileNames[index];
+                    
+                    await ProgressForm.ShowLoading(this, LocalizationService.GetString("Msg_DownloadingAttachment"), async () => 
+                    {
+                        try
+                        {
+                            var data = await _apiClient.DownloadAttachmentAsync(material.MaterialId, fileName);
+                            string tempFile = System.IO.Path.Combine(System.IO.Path.GetTempPath(), fileName);
+                            System.IO.File.WriteAllBytes(tempFile, data);
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFile) { UseShellExecute = true });
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(LocalizationService.GetString("Msg_CannotOpenFile") + ex.Message, 
+                                LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    });
+                }
+            }
+        }
+
+        private void menuOutbound_Click(object sender, EventArgs e)
+        {
+            if (dgvResults.SelectedRows.Count > 0)
+            {
+                var material = dgvResults.SelectedRows[0].DataBoundItem as SparePartSearchResultDto;
+                if (material != null)
+                {
+                    var mainForm = Application.OpenForms.OfType<MainForm>().FirstOrDefault();
+                    if (mainForm != null)
+                    {
+                        mainForm.NavigateToOutboundWithBarcode(material.PartNo);
+                        this.Close();
+                    }
+                }
+            }
+        }
+
+        private async void QueryForm_Load(object sender, EventArgs e)
+        {
+            await PerformSearch("");
+        }
+
+        private async void btnSearch_Click(object sender, EventArgs e)
+        {
+            string keyword = txtSearchKeyword.Text.Trim();
+            await PerformSearch(keyword);
+        }
+
+        private async void btnShowAll_Click(object sender, EventArgs e)
+        {
+            txtSearchKeyword.Clear();
+            await PerformSearch("");
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if (dgvResults.Rows.Count == 0)
+            {
+                MessageBox.Show(LocalizationService.GetString("Msg_NoDataToExport"), 
+                    LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "Excel Workbook (*.xlsx)|*.xlsx";
+                sfd.FileName = $"InventoryExport_{DateTime.Now:yyyyMMddHHmm}.xlsx";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        ExportToExcel(sfd.FileName);
+                        MessageBox.Show(LocalizationService.GetString("Msg_ExportSuccess"), 
+                            LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(LocalizationService.GetString("Msg_ExportError") + ex.Message, 
+                            LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void ExportToExcel(string filePath)
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Inventory");
+
+                // 寫入標題 (略過最後兩個附件圖片欄位)
+                int colIndex = 1;
+                for (int i = 0; i < dgvResults.Columns.Count; i++)
+                {
+                    if (dgvResults.Columns[i] is DataGridViewImageColumn) continue;
+                    
+                    worksheet.Cell(1, colIndex).Value = dgvResults.Columns[i].HeaderText;
+                    worksheet.Cell(1, colIndex).Style.Font.Bold = true;
+                    worksheet.Cell(1, colIndex).Style.Fill.BackgroundColor = XLColor.LightBlue;
+                    colIndex++;
+                }
+
+                // 寫入資料
+                for (int r = 0; r < dgvResults.Rows.Count; r++)
+                {
+                    colIndex = 1;
+                    for (int c = 0; c < dgvResults.Columns.Count; c++)
+                    {
+                        if (dgvResults.Columns[c] is DataGridViewImageColumn) continue;
+
+                        var val = dgvResults.Rows[r].Cells[c].Value;
+                        worksheet.Cell(r + 2, colIndex).Value = val?.ToString() ?? "";
+                        colIndex++;
+                    }
+                }
+
+                worksheet.Columns().AdjustToContents();
+                workbook.SaveAs(filePath);
+            }
+        }
+
+        private async void txtSearchKeyword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                string keyword = txtSearchKeyword.Text.Trim();
+                await PerformSearch(keyword);
+            }
+        }
+
+        private async System.Threading.Tasks.Task PerformSearch(string keyword)
+        {
+            try
+            {
+                dgvResults.Cursor = Cursors.WaitCursor;
+                btnSearch.Enabled = false;
+
+                List<SparePartSearchResultDto> results = await _apiClient.SearchInventoryAsync(keyword);
+                
+                dgvResults.AutoGenerateColumns = false;
+                dgvResults.DataSource = results;
+
+                // 設置附件圖示
+                var pdfIcon = ClientResources.PdfIcon;
+                for (int i = 0; i < dgvResults.Rows.Count; i++)
+                {
+                    var material = dgvResults.Rows[i].DataBoundItem as SparePartSearchResultDto;
+                    if (material != null && material.AttachmentFileNames != null)
+                    {
+                        if (material.AttachmentFileNames.Count > 0)
+                            dgvResults.Rows[i].Cells["Col_Att1"].Value = pdfIcon;
+                        if (material.AttachmentFileNames.Count > 1)
+                            dgvResults.Rows[i].Cells["Col_Att2"].Value = pdfIcon;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(LocalizationService.GetString("Msg_SearchError") + ex.Message, 
+                    LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                dgvResults.Cursor = Cursors.Default;
+                btnSearch.Enabled = true;
+            }
+        }
+
+        private void dgvResults_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (e.RowIndex >= 0)
+                {
+                    // 右鍵點擊時自動選中該列
+                    dgvResults.ClearSelection();
+                    dgvResults.Rows[e.RowIndex].Selected = true;
+                }
+            }
+        }
+
+        private void ctxMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // 權限控管：
+            // 改用 Available 屬性，這在 Opening 事件中比 Visible 更可靠且能正確覆寫
+            int level = UserSession.UserLevel == 0 ? 99 : UserSession.UserLevel;
+
+            menuEdit.Available = level <= 2;
+            menuDelete.Available = level <= 1;
+            menuOutbound.Available = level <= 4;
+
+            // 只有在完全沒有任何可見項目時才取消開啟
+            bool hasAvailableItems = menuEdit.Available || menuDelete.Available || menuOutbound.Available;
+            if (!hasAvailableItems)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void menuEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvResults.SelectedRows.Count > 0)
+            {
+                var item = dgvResults.SelectedRows[0].DataBoundItem as SparePartSearchResultDto;
+                if (item != null)
+                {
+                    var form = new MaterialCreationForm(item.MaterialId);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        btnSearch.PerformClick();
+                    }
+                }
+            }
+        }
+
+        private async void menuDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvResults.SelectedRows.Count > 0)
+            {
+                var item = dgvResults.SelectedRows[0].DataBoundItem as SparePartSearchResultDto;
+                if (item != null)
+                {
+                    string confirmMsg = string.Format(LocalizationService.GetString("Msg_DeleteConfirm"), item.Name, item.PartNo);
+                    var result = MessageBox.Show(confirmMsg, 
+                        LocalizationService.GetString("Menu_Delete"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    
+                    if (result == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            await _apiClient.DeleteMaterialAsync(item.MaterialId);
+                            MessageBox.Show(LocalizationService.GetString("Msg_DeleteSuccess"), 
+                                LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            btnSearch.PerformClick();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(LocalizationService.GetString("Msg_DeleteError") + ex.Message, 
+                                LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

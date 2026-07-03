@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- App Global -->
+  <data name="App_Title" xml:space="preserve"><value>Parts Management System</value></data>
+  <data name="Common_Info" xml:space="preserve"><value>Info</value></data>
+  <data name="Common_Error" xml:space="preserve"><value>Error</value></data>
+  <data name="Common_Warning" xml:space="preserve"><value>Warning</value></data>
+  <data name="Common_Success" xml:space="preserve"><value>Success</value></data>
+  <data name="Status_Ready" xml:space="preserve"><value>System Ready, scan barcode...</value></data>
+  <data name="Status_Searching" xml:space="preserve"><value>Searching...</value></data>
+  <data name="Status_NotFound" xml:space="preserve"><value>Not Found</value></data>
+  <data name="Status_Connecting" xml:space="preserve"><value>Connecting to server...</value></data>
+
+  <!-- Navigation -->
+  <data name="Menu_Inbound" xml:space="preserve"><value>Inbound</value></data>
+  <data name="Menu_Query" xml:space="preserve"><value>Inventory Query</value></data>
+  <data name="Menu_TransHistory" xml:space="preserve"><value>History</value></data>
+  <data name="Menu_LowStock" xml:space="preserve"><value>Low Stock Board</value></data>
+  <data name="Menu_Inventory" xml:space="preserve"><value>Stock Take</value></data>
+  <data name="Menu_CreateMaterial" xml:space="preserve"><value>Create Master</value></data>
+  <data name="Menu_BatchImport" xml:space="preserve"><value>Batch Import</value></data>
+  <data name="Menu_UserMgmt" xml:space="preserve"><value>Users</value></data>
+  <data name="Menu_MachineMgmt" xml:space="preserve"><value>Machines</value></data>
+  <data name="Menu_Settings" xml:space="preserve"><value>⚙ Settings</value></data>
+  <data name="Menu_ChangePassword" xml:space="preserve"><value>Password</value></data>
+  <data name="Menu_Logout" xml:space="preserve"><value>Logout</value></data>
+  <data name="Menu_Edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="Menu_Delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="Menu_Outbound" xml:space="preserve"><value>Outbound</value></data>
+  <data name="Setting_EnablePrinting" xml:space="preserve"><value>Enable Printing</value></data>
+
+  <!-- Buttons -->
+  <data name="Btn_Login" xml:space="preserve"><value>Login</value></data>
+  <data name="Btn_Confirm" xml:space="preserve"><value>Confirm</value></data>
+  <data name="Btn_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Btn_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Btn_Delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="Btn_Search" xml:space="preserve"><value>🔍 Search</value></data>
+  <data name="Btn_ShowAll" xml:space="preserve"><value>Show All</value></data>
+  <data name="Btn_ExportExcel" xml:space="preserve"><value>Export Excel</value></data>
+  <data name="Btn_Inbound" xml:space="preserve"><value>Inbound</value></data>
+  <data name="Btn_PrintLabel" xml:space="preserve"><value>Print Label</value></data>
+  <data name="Btn_ManualInput" xml:space="preserve"><value>Manual Input</value></data>
+  <data name="Btn_UploadPDF" xml:space="preserve"><value>Upload PDF</value></data>
+  <data name="Btn_AddUser" xml:space="preserve"><value>Add User</value></data>
+  <data name="Btn_DeleteUser" xml:space="preserve"><value>Delete User</value></data>
+  <data name="Btn_AddMachine" xml:space="preserve"><value>Add Machine</value></data>
+  <data name="Btn_Reconnect" xml:space="preserve"><value>Reconnect</value></data>
+  <data name="Btn_DownloadTemplate" xml:space="preserve"><value>Download Template</value></data>
+  <data name="Btn_ImportFile" xml:space="preserve"><value>Import File</value></data>
+  <data name="Btn_GenerateReport" xml:space="preserve"><value>Report</value></data>
+  <data name="Button_GenTempPartNo" xml:space="preserve"><value>Gen Temp P/N</value></data>
+
+  <!-- Labels / Fields -->
+  <data name="Label_Username" xml:space="preserve"><value>Username</value></data>
+  <data name="Label_Password" xml:space="preserve"><value>Password</value></data>
+  <data name="Label_UserLevel" xml:space="preserve"><value>Level</value></data>
+  <data name="Label_PartNo" xml:space="preserve"><value>Part No</value></data>
+  <data name="Label_Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Label_Spec" xml:space="preserve"><value>Spec:</value></data>
+  <data name="Label_Specification" xml:space="preserve"><value>Specification</value></data>
+  <data name="Label_Qty" xml:space="preserve"><value>Qty</value></data>
+  <data name="Label_InboundQty" xml:space="preserve"><value>Inbound Qty</value></data>
+  <data name="Label_SafeStock" xml:space="preserve"><value>Safe Stock</value></data>
+  <data name="Label_LeadTime" xml:space="preserve"><value>Lead Time (D)</value></data>
+  <data name="Label_Price" xml:space="preserve"><value>Price/Amount</value></data>
+  <data name="Label_InitialStock" xml:space="preserve"><value>Current Stock</value></data>
+  <data name="Label_InitialWarehouse" xml:space="preserve"><value>Warehouse</value></data>
+  <data name="Label_TargetWarehouse" xml:space="preserve"><value>Target Wh</value></data>
+  <data name="Label_OpWarehouse" xml:space="preserve"><value>Op Wh:</value></data>
+  <data name="Label_StorageLocation" xml:space="preserve"><value>Loc</value></data>
+  <data name="Label_Manufacturer" xml:space="preserve"><value>Mfr</value></data>
+  <data name="Label_ManufacturerNo" xml:space="preserve"><value>Mfr No</value></data>
+  <data name="Label_Machine" xml:space="preserve"><value>Machine</value></data>
+  <data name="Label_MachineCode" xml:space="preserve"><value>Machine Code</value></data>
+  <data name="Label_MachineName" xml:space="preserve"><value>Machine Name</value></data>
+  <data name="Label_ScanBarcode" xml:space="preserve"><value>Scan Barcode:</value></data>
+  <data name="Label_Keyword" xml:space="preserve"><value>Search (Name/Spec/Mfr):</value></data>
+  <data name="Label_DateFrom" xml:space="preserve"><value>From:</value></data>
+  <data name="Label_DateTo" xml:space="preserve"><value>To:</value></data>
+  <data name="Label_Attachments" xml:space="preserve"><value>Attachments (Max 2 PDF)</value></data>
+  <data name="Label_EditArea" xml:space="preserve"><value>Edit Area</value></data>
+  <data name="Label_AddAccount" xml:space="preserve"><value>Add Account</value></data>
+  <data name="Label_ServerSettings" xml:space="preserve"><value>Server Settings</value></data>
+  <data name="Label_ServerIP" xml:space="preserve"><value>IP</value></data>
+  <data name="Label_ServerPort" xml:space="preserve"><value>Port</value></data>
+  <data name="Label_ImportLog" xml:space="preserve"><value>Logs:</value></data>
+  <data name="Label_ScannedCount" xml:space="preserve"><value>Scanned: {0} items</value></data>
+  <data name="Label_MaterialName" xml:space="preserve"><value>Name:</value></data>
+  <data name="Label_CurrentStock" xml:space="preserve"><value>Current Stock:</value></data>
+
+  <!-- Grid Columns -->
+  <data name="Col_PartNo" xml:space="preserve"><value>Part No</value></data>
+  <data name="Col_Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Col_Spec" xml:space="preserve"><value>Spec</value></data>
+  <data name="Col_Qty" xml:space="preserve"><value>Stock</value></data>
+  <data name="Col_SafeStock" xml:space="preserve"><value>Safe Qty</value></data>
+  <data name="Col_LeadTime" xml:space="preserve"><value>Lead Time</value></data>
+  <data name="Col_Price" xml:space="preserve"><value>Price</value></data>
+  <data name="Col_TotalAmount" xml:space="preserve"><value>Total Amt</value></data>
+  <data name="Col_Warehouse" xml:space="preserve"><value>Wh</value></data>
+  <data name="Col_StorageLocation" xml:space="preserve"><value>Location</value></data>
+  <data name="Col_Manufacturer" xml:space="preserve"><value>Manufacturer</value></data>
+  <data name="Col_ManufacturerNo" xml:space="preserve"><value>Mfr No</value></data>
+  <data name="Col_TransTime" xml:space="preserve"><value>Time</value></data>
+  <data name="Col_TransType" xml:space="preserve"><value>Type</value></data>
+  <data name="Col_ChangeQty" xml:space="preserve"><value>Change</value></data>
+  <data name="Col_AfterQty" xml:space="preserve"><value>After</value></data>
+  <data name="Col_Operator" xml:space="preserve"><value>Operator</value></data>
+  <data name="Col_Reason" xml:space="preserve"><value>Reason</value></data>
+  <data name="Col_Att1" xml:space="preserve"><value>Att 1</value></data>
+  <data name="Col_Att2" xml:space="preserve"><value>Att 2</value></data>
+  <data name="Col_UserName" xml:space="preserve"><value>User</value></data>
+  <data name="Col_UserLevel" xml:space="preserve"><value>Level</value></data>
+  <data name="Col_IsActive" xml:space="preserve"><value>Active</value></data>
+  <data name="Col_MachineCode" xml:space="preserve"><value>Code</value></data>
+  <data name="Col_MachineName" xml:space="preserve"><value>Name</value></data>
+  <data name="Col_TotalStock" xml:space="preserve"><value>Total Stock</value></data>
+  <data name="Col_SafeLevel" xml:space="preserve"><value>Safe Level</value></data>
+
+  <!-- Import Excel Headers (Pure terms) -->
+  <data name="Import_Header_PartNo" xml:space="preserve"><value>PartNo *</value></data>
+  <data name="Import_Header_Name" xml:space="preserve"><value>Name *</value></data>
+  <data name="Import_Header_Spec" xml:space="preserve"><value>Spec</value></data>
+  <data name="Import_Header_InitialStock" xml:space="preserve"><value>InitialStock</value></data>
+  <data name="Import_Header_WarehouseId" xml:space="preserve"><value>WarehouseId</value></data>
+  <data name="Import_Header_SafeStock" xml:space="preserve"><value>SafeStock</value></data>
+  <data name="Import_Header_LeadTime" xml:space="preserve"><value>LeadTime</value></data>
+  <data name="Import_Header_ManufacturerNo" xml:space="preserve"><value>ManufacturerNo</value></data>
+  <data name="Import_Header_Price" xml:space="preserve"><value>Price *</value></data>
+  <data name="Import_Header_Attachment1" xml:space="preserve"><value>Att1</value></data>
+  <data name="Import_Header_Attachment2" xml:space="preserve"><value>Att2</value></data>
+  <data name="Import_Header_StorageLocation" xml:space="preserve"><value>Loc</value></data>
+  <data name="Import_Header_Supplier" xml:space="preserve"><value>Supplier</value></data>
+  <data name="Import_Header_Manufacturer" xml:space="preserve"><value>Mfr</value></data>
+
+  <!-- Messages -->
+  <data name="Msg_LoginFailed" xml:space="preserve"><value>Login Failed</value></data>
+  <data name="Msg_ServerOnline" xml:space="preserve"><value>Server Online</value></data>
+  <data name="Msg_ServerOffline" xml:space="preserve"><value>Server Offline</value></data>
+  <data name="Msg_SaveSuccess" xml:space="preserve"><value>Saved Successfully</value></data>
+  <data name="Msg_SaveError" xml:space="preserve"><value>Save Error</value></data>
+  <data name="Msg_DeleteConfirm" xml:space="preserve"><value>Delete '{0}'?</value></data>
+  <data name="Msg_DeleteSuccess" xml:space="preserve"><value>Deleted</value></data>
+  <data name="Msg_InputCorrectQty" xml:space="preserve"><value>Invalid Qty</value></data>
+  <data name="Msg_LowStockAlert" xml:space="preserve"><value>Low stock: {0} (Safe {1})</value></data>
+  <data name="Msg_AutoLogout" xml:space="preserve"><value>Idle timeout logout</value></data>
+  <data name="Msg_ConnectSuccess" xml:space="preserve"><value>Connect Success</value></data>
+  <data name="Msg_ConnectFailed" xml:space="preserve"><value>Connect Failed</value></data>
+  <data name="Msg_FileIsLocked" xml:space="preserve"><value>File locked, close Excel</value></data>
+  <data name="Msg_BarcodeNotFound" xml:space="preserve"><value>Barcode not found</value></data>
+  <data name="Msg_TemplateSaved" xml:space="preserve"><value>Saved to: {0}</value></data>
+  <data name="Msg_Importing" xml:space="preserve"><value>Processing {0}/{1}...</value></data>
+  <data name="Msg_ImportComplete" xml:space="preserve"><value>Import Done! Success {0}, Failed {1}</value></data>
+
+  <!-- Titles -->
+  <data name="LoginForm" xml:space="preserve"><value>System Login</value></data>
+  <data name="InboundForm" xml:space="preserve"><value>Inbound</value></data>
+  <data name="QueryForm" xml:space="preserve"><value>Inventory Query</value></data>
+  <data name="InventoryForm" xml:space="preserve"><value>Stock Take</value></data>
+  <data name="TransactionHistoryForm" xml:space="preserve"><value>History</value></data>
+  <data name="MaterialCreationForm" xml:space="preserve"><value>New Material</value></data>
+  <data name="MaterialEditForm" xml:space="preserve"><value>Edit Material</value></data>
+  <data name="BatchImportForm" xml:space="preserve"><value>Batch Import</value></data>
+  <data name="UserMgmtForm" xml:space="preserve"><value>Users Management</value></data>
+  <data name="MachineManagementForm" xml:space="preserve"><value>Machine Management</value></data>
+  <data name="UI_LowStockDashboard" xml:space="preserve"><value>Low Safety Stock Dashboard</value></data>
+
+  <!-- Missing Messages -->
+  <data name="Tray_OpenLogs" xml:space="preserve"><value>Open Logs</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Exit System</value></data>
+  <data name="Tray_WarnClose" xml:space="preserve"><value>Are you sure you want to stop the API server? Front-end will not work.</value></data>
+  <data name="Tray_WarnTitle" xml:space="preserve"><value>Stop Confirmation</value></data>
+  <data name="Error_MaterialNotFound" xml:space="preserve"><value>Material not found: {0}</value></data>
+  <data name="Log_DataIncomplete" xml:space="preserve"><value>Data incomplete (P/N: {0})</value></data>
+  <data name="Log_FileNotFound" xml:space="preserve"><value>Attachment not found: {1} (P/N: {0})</value></data>
+  <data name="Log_Success" xml:space="preserve"><value>Import Success (P/N: {0})</value></data>
+  <data name="Log_Duplicate" xml:space="preserve"><value>Duplicate P/N (P/N: {0})</value></data>
+  <data name="Log_ApiError" xml:space="preserve"><value>API Error (P/N: {0}): {1}</value></data>
+  <data name="Msg_InputRequired" xml:space="preserve"><value>Please fill required fields</value></data>
+  <data name="Msg_PasswordMismatch" xml:space="preserve"><value>Passwords do not match</value></data>
+  <data name="Msg_PasswordChanged" xml:space="preserve"><value>Password changed</value></data>
+  <data name="Msg_LoadWarehouseError" xml:space="preserve"><value>Failed to load warehouse: </value></data>
+  <data name="Status_InboundSearching" xml:space="preserve"><value>Searching material...</value></data>
+  <data name="Label_PartNoPrefix" xml:space="preserve"><value>Part No: </value></data>
+  <data name="Status_IdentifySuccess" xml:space="preserve"><value>Identified</value></data>
+  <data name="Dialog_ManualInputLabel" xml:space="preserve"><value>Enter material barcode:</value></data>
+  <data name="Dialog_ManualInputTitle" xml:space="preserve"><value>Manual Input</value></data>
+  <data name="Msg_SearchSuccess" xml:space="preserve"><value>Search Success</value></data>
+  <data name="Msg_NotFoundCreate" xml:space="preserve"><value>Material '{0}' not found. Create new?</value></data>
+  <data name="Dialog_NotFoundTitle" xml:space="preserve"><value>Material Not Found</value></data>
+  <data name="Status_InboundProcessing" xml:space="preserve"><value>Processing inbound...</value></data>
+  <data name="Status_InboundSuccess" xml:space="preserve"><value>Barcode {0} inbound success</value></data>
+  <data name="Status_InboundFailed" xml:space="preserve"><value>Inbound failed: {0}</value></data>
+  <data name="Msg_BarcodeAlreadyScanned" xml:space="preserve"><value>Material {0} already scanned. Current: {1}. Edit?</value></data>
+  <data name="Common_Confirm" xml:space="preserve"><value>Confirm</value></data>
+  <data name="Msg_EnterNewQty" xml:space="preserve"><value>Enter new quantity:</value></data>
+  <data name="Common_Edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="Msg_EnterQty" xml:space="preserve"><value>Enter quantity: </value></data>
+  <data name="Common_Input" xml:space="preserve"><value>Input</value></data>
+  <data name="Msg_NoItemsScanned" xml:space="preserve"><value>No items scanned</value></data>
+  <data name="Msg_ExportSuccess" xml:space="preserve"><value>Export Success</value></data>
+  <data name="UI_Acknowledge" xml:space="preserve"><value>Got it</value></data>
+  <data name="UI_Refresh" xml:space="preserve"><value>Refresh</value></data>
+  <data name="Msg_MachineCodeRequired" xml:space="preserve"><value>Enter machine code</value></data>
+  <data name="Status_OutboundSuccess" xml:space="preserve"><value>Outbound Success</value></data>
+  <data name="Msg_PostFailed" xml:space="preserve"><value>Failed to send data: </value></data>
+  <data name="Msg_LoadMaterialError" xml:space="preserve"><value>Failed to load material: </value></data>
+  <data name="Msg_TempPartNoGenerated" xml:space="preserve"><value>Temp Part No generated</value></data>
+  <data name="Msg_MaxAttachments" xml:space="preserve"><value>Max attachments reached (2)</value></data>
+  <data name="Msg_FileSizeExceeded" xml:space="preserve"><value>File size exceeds limit (2MB)</value></data>
+  <data name="Msg_CannotOpenFile" xml:space="preserve"><value>Cannot open file: </value></data>
+  <data name="Msg_PartNoRequired" xml:space="preserve"><value>Part No required</value></data>
+  <data name="Msg_NameRequired" xml:space="preserve"><value>Name required</value></data>
+  <data name="Msg_ExportError" xml:space="preserve"><value>Export failed: </value></data>
+  <data name="Msg_GoToLocation" xml:space="preserve"><value>Please go to storage location {0} to pick up</value></data>
+  <data name="Menu_BackupRestore" xml:space="preserve"><value>Backup &amp; Restore</value></data>
+  <data name="Btn_Restore" xml:space="preserve"><value>Restore</value></data>
+  <data name="Msg_RestoreConfirm" xml:space="preserve"><value>Warning: Restore will overwrite existing data. Are you sure?</value></data>
+  <data name="Msg_RestoreSuccess" xml:space="preserve"><value>Restore successful. Please restart the system</value></data>
+  <data name="Msg_RestoreFailed" xml:space="preserve"><value>Restore failed: </value></data>
+  <data name="Btn_Backup" xml:space="preserve"><value>Backup</value></data>
+  <data name="Msg_BackupConfirm" xml:space="preserve"><value>Are you sure you want to run a manual backup?</value></data>
+  <data name="Msg_BackupSuccess" xml:space="preserve"><value>Backup successful!</value></data>
+  <data name="Msg_BackupFailed" xml:space="preserve"><value>Backup failed: </value></data>
+  <data name="Msg_AskBackupBeforeRestore" xml:space="preserve"><value>Restore will overwrite existing data. Would you like to create a backup before restoring? (Recommended)</value></data>
+  <data name="Lbl_LastBackupTime" xml:space="preserve"><value>Last backup time:</value></data>
+  <data name="Lbl_NoBackupFiles" xml:space="preserve"><value>No backup files on the cloud.</value></data>
+  <data name="Lbl_LoadingBackups" xml:space="preserve"><value>Loading...</value></data>
+  <data name="Lbl_LoadFailed" xml:space="preserve"><value>Load failed</value></data>
+  <data name="Msg_SearchError" xml:space="preserve"><value>Search failed: </value></data>
+  <data name="Msg_DeleteError" xml:space="preserve"><value>Delete failed: </value></data>
+  <data name="Msg_InstanceRunning" xml:space="preserve"><value>Application is already running</value></data>
+  <data name="Msg_SystemWarning" xml:space="preserve"><value>System Warning</value></data>
+  <data name="Msg_LoginError" xml:space="preserve"><value>Login Error: </value></data>
+  <data name="Msg_LoadMachinesError" xml:space="preserve"><value>Load Machines Error: </value></data>
+  <data name="Msg_LoadUsersError" xml:space="preserve"><value>Load Users Error: </value></data>
+  <data name="Msg_CreateUserError" xml:space="preserve"><value>Create User Error: </value></data>
+</root>
