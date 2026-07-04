@@ -287,4 +287,7 @@
   <data name="Msg_LoadMachinesError" xml:space="preserve"><value>載入設備失敗：</value></data>
   <data name="Msg_LoadUsersError" xml:space="preserve"><value>載入使用者失敗：</value></data>
   <data name="Msg_CreateUserError" xml:space="preserve"><value>建立使用者失敗：</value></data>
+  <data name="Msg_LoadBackupFailed" xml:space="preserve"><value>載入備份失敗：</value></data>
+  <data name="Msg_TriggerRestoreFailed" xml:space="preserve"><value>觸發還原失敗：</value></data>
+  <data name="Msg_GeneratePartNoFailed" xml:space="preserve"><value>產生料號失敗：</value></data>
 </root>

@@ -102,8 +102,8 @@ namespace PartsManager.Client
             }
             catch (Exception ex)
             {
-                MessageBox.Show("產生料號失敗：" + ex.Message, 
-                    LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LocalizationService.GetString("Msg_GeneratePartNoFailed") + ex.Message, 
+                    LocalizationService.GetString("Common_Error") ?? "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

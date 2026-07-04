@@ -134,7 +134,7 @@ namespace PartsManager.Client
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"載入備份失敗: {ex.Message}");
+                MessageBox.Show(LocalizationService.GetString("Msg_LoadBackupFailed") + ex.Message, LocalizationService.GetString("Common_Error") ?? "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _lblStatus.Text = LocalizationService.GetString("Lbl_LoadFailed") ?? "載入失敗";
             }
         }
@@ -146,7 +146,7 @@ namespace PartsManager.Client
             string folderId = _dgvBackups.SelectedRows[0].Cells["FolderId"].Value.ToString();
             string msg = LocalizationService.GetString("Msg_AskBackupBeforeRestore") ?? "還原將會覆蓋現有資料，是否要在還原前先執行一次手動備份？(建議選是)";
             
-            var result = MessageBox.Show(msg, "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            var result = MessageBox.Show(msg, LocalizationService.GetString("Common_Confirm") ?? "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.Cancel) return;
 
             _btnRestore.Enabled = false;
@@ -159,12 +159,12 @@ namespace PartsManager.Client
                 try
                 {
                     await _apiClient.RunBackupAsync();
-                    MessageBox.Show(LocalizationService.GetString("Msg_BackupSuccess") ?? "備份成功！即將開始還原", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(LocalizationService.GetString("Msg_BackupSuccess") ?? "備份成功！即將開始還原", LocalizationService.GetString("Common_Success") ?? "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadBackups();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"{(LocalizationService.GetString("Msg_BackupFailed") ?? "備份失敗：")}{ex.Message}\n\n還原程序已中止。", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{(LocalizationService.GetString("Msg_BackupFailed") ?? "備份失敗：")}{ex.Message}\n\n還原程序已中止。", LocalizationService.GetString("Common_Error") ?? "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     _lblStatus.Text = oldStatus;
                     _btnRestore.Enabled = true;
                     _btnBackup.Enabled = true;
@@ -185,7 +185,7 @@ namespace PartsManager.Client
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"觸發還原失敗: {ex.Message}");
+                MessageBox.Show(LocalizationService.GetString("Msg_TriggerRestoreFailed") + ex.Message, LocalizationService.GetString("Common_Error") ?? "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _btnRestore.Enabled = true;
                 _btnBackup.Enabled = true;
                 _progressBar.Visible = false;
@@ -196,7 +196,7 @@ namespace PartsManager.Client
         private async void BtnBackup_Click(object sender, EventArgs e)
         {
             string msg = LocalizationService.GetString("Msg_BackupConfirm") ?? "確定要執行手動備份嗎？";
-            if (MessageBox.Show(msg, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            if (MessageBox.Show(msg, LocalizationService.GetString("Common_Confirm") ?? "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
                 _btnRestore.Enabled = false;
                 _btnBackup.Enabled = false;
@@ -206,12 +206,12 @@ namespace PartsManager.Client
                 try
                 {
                     await _apiClient.RunBackupAsync();
-                    MessageBox.Show(LocalizationService.GetString("Msg_BackupSuccess") ?? "備份成功！", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(LocalizationService.GetString("Msg_BackupSuccess") ?? "備份成功！", LocalizationService.GetString("Common_Success") ?? "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadBackups();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"{(LocalizationService.GetString("Msg_BackupFailed") ?? "備份失敗：")}{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{(LocalizationService.GetString("Msg_BackupFailed") ?? "備份失敗：")}{ex.Message}", LocalizationService.GetString("Common_Error") ?? "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     _lblStatus.Text = oldStatus;
                 }
                 finally
@@ -235,14 +235,14 @@ namespace PartsManager.Client
                 {
                     _progressTimer.Stop();
                     string successMsg = LocalizationService.GetString("Msg_RestoreSuccess") ?? "還原成功，請重新啟動系統";
-                    MessageBox.Show(successMsg, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(successMsg, LocalizationService.GetString("Common_Success") ?? "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Application.Exit(); // or close form
                 }
                 else if (progress.Status.StartsWith("Failed"))
                 {
                     _progressTimer.Stop();
                     string failMsg = LocalizationService.GetString("Msg_RestoreFailed") ?? "還原失敗：";
-                    MessageBox.Show($"{failMsg}{progress.Status}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{failMsg}{progress.Status}", LocalizationService.GetString("Common_Error") ?? "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     _btnRestore.Enabled = true;
                 }
             }

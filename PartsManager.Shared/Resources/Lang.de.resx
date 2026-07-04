@@ -287,4 +287,7 @@
   <data name="Msg_LoadMachinesError" xml:space="preserve"><value>Fehler beim Laden der Maschinen: </value></data>
   <data name="Msg_LoadUsersError" xml:space="preserve"><value>Fehler beim Laden der Benutzer: </value></data>
   <data name="Msg_CreateUserError" xml:space="preserve"><value>Fehler beim Erstellen des Benutzers: </value></data>
+  <data name="Msg_LoadBackupFailed" xml:space="preserve"><value>Laden des Backups fehlgeschlagen: </value></data>
+  <data name="Msg_TriggerRestoreFailed" xml:space="preserve"><value>Wiederherstellung konnte nicht ausgelöst werden: </value></data>
+  <data name="Msg_GeneratePartNoFailed" xml:space="preserve"><value>Fehler beim Generieren der Teilenummer: </value></data>
 </root>
