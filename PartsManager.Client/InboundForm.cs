@@ -12,15 +12,57 @@ namespace PartsManager.Client
     {
         private readonly ApiClient _apiClient;
 
+        private Label lblCurrentStorageStock;
+
         public InboundForm()
         {
             InitializeComponent();
+            
+            // 動態新增庫存顯示標籤
+            lblCurrentStorageStock = new Label
+            {
+                AutoSize = true,
+                Font = new Font("Microsoft JhengHei", 12F, FontStyle.Bold),
+                ForeColor = Color.Orange,
+                Location = new Point(45, cmbStorageLocation.Top), // 原本 combobox 的位置
+                Text = "目前庫存: 0"
+            };
+            pnlLeft.Controls.Add(lblCurrentStorageStock);
+
+            // 將下拉選單與下方按鈕往下推
+            cmbStorageLocation.Top += 35;
+            btnInbound.Top += 35;
+
+            // 註冊選單變更事件
+            cmbStorageLocation.SelectedIndexChanged += CmbStorageLocation_SelectedIndexChanged;
+
             UIStyle.Apply(this);
             I18nHelper.Apply(this); 
             
             // 將按鈕文字對應到語系
             btnManualInput.Text = LocalizationService.GetString("Menu_Query");
             _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
+        }
+
+        private void CmbStorageLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbStorageLocation.SelectedItem != null)
+            {
+                dynamic selected = cmbStorageLocation.SelectedItem;
+                try
+                {
+                    decimal qty = selected.Qty;
+                    lblCurrentStorageStock.Text = $"目前庫存: {qty:N0}";
+                }
+                catch
+                {
+                    lblCurrentStorageStock.Text = "目前庫存: 0";
+                }
+            }
+            else
+            {
+                lblCurrentStorageStock.Text = "目前庫存: 0";
+            }
         }
 
         private async void InboundForm_Load(object sender, EventArgs e)
@@ -94,12 +136,12 @@ namespace PartsManager.Client
                     {
                         foreach (var stock in info.Stocks.OrderByDescending(s => s.Quantity))
                         {
-                            dataSource.Add(new { Display = string.IsNullOrEmpty(stock.StorageLocation) ? "(未設定儲位) - " + stock.Quantity.ToString("N0") : $"{stock.StorageLocation} - {stock.Quantity:N0}", Value = stock.StorageLocation ?? "" });
+                            dataSource.Add(new { Display = string.IsNullOrEmpty(stock.StorageLocation) ? "(未設定儲位) - " + stock.Quantity.ToString("N0") : $"{stock.StorageLocation} - {stock.Quantity:N0}", Value = stock.StorageLocation ?? "", Qty = stock.Quantity });
                         }
                     }
                     if (!string.IsNullOrEmpty(info.StorageLocation) && !dataSource.Any(x => x.Value == info.StorageLocation))
                     {
-                        dataSource.Insert(0, new { Display = info.StorageLocation, Value = info.StorageLocation });
+                        dataSource.Insert(0, new { Display = info.StorageLocation, Value = info.StorageLocation, Qty = 0m });
                     }
 
                     if (dataSource.Any())
