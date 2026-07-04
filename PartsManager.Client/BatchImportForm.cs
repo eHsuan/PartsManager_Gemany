@@ -149,6 +149,7 @@ namespace PartsManager.Client
                     var rows = ws.RangeUsed().RowsUsed().Skip(1); // 跳過標題列
                     int totalRows = rows.Count();
                     int currentIndex = 0;
+                    var generatedPartNoMap = new Dictionary<string, string>();
 
                     foreach (var row in rows)
                     {
@@ -156,12 +157,22 @@ namespace PartsManager.Client
                         
                         // 根據映射讀取資料
                         string name = columnMap.ContainsKey("Name") ? row.Cell(columnMap["Name"]).GetString().Trim() : "";
+                        string spec = columnMap.ContainsKey("Spec") ? row.Cell(columnMap["Spec"]).GetString().Trim() : "";
                         string partNo = columnMap.ContainsKey("PartNo") ? row.Cell(columnMap["PartNo"]).GetString().Trim() : "";
                         
                         if (string.IsNullOrEmpty(name))
                         {
                             AppendLog(string.Format(LocalizationService.GetString("Log_DataIncomplete"), partNo));
                             continue;
+                        }
+
+                        // 如果料號為空，檢查是否已經為相同品名與型號產生過料號
+                        string groupKey = $"{name}|||{spec}";
+                        bool isGroupedPartNo = false;
+                        if (string.IsNullOrEmpty(partNo) && generatedPartNoMap.ContainsKey(groupKey))
+                        {
+                            partNo = generatedPartNoMap[groupKey];
+                            isGroupedPartNo = true;
                         }
 
                         lblStatus.Text = string.Format(LocalizationService.GetString("Msg_Importing"), currentIndex, totalRows);
@@ -172,7 +183,7 @@ namespace PartsManager.Client
                             {
                                 Name = name,
                                 PartNo = partNo,
-                                Specification = columnMap.ContainsKey("Spec") ? row.Cell(columnMap["Spec"]).GetString().Trim() : "",
+                                Specification = spec,
                                 StorageLocation = columnMap.ContainsKey("StorageLocation") ? row.Cell(columnMap["StorageLocation"]).GetString().Trim() : "",
                                 Manufacturer = columnMap.ContainsKey("Manufacturer") ? row.Cell(columnMap["Manufacturer"]).GetString().Trim() : "",
                                 ManufacturerNo = columnMap.ContainsKey("ManufacturerNo") ? row.Cell(columnMap["ManufacturerNo"]).GetString().Trim() : ""
@@ -240,6 +251,13 @@ namespace PartsManager.Client
                             var material = await _apiClient.CreateMaterialAsync(dto);
                             if (material != null)
                             {
+                                // 如果原本沒填料號，將後端產生的料號記錄下來供後續相同品名型號使用
+                                if (string.IsNullOrEmpty(partNo) && !string.IsNullOrEmpty(material.PartNo))
+                                {
+                                    generatedPartNoMap[groupKey] = material.PartNo;
+                                    partNo = material.PartNo; // 更新供 log 顯示
+                                }
+
                                 if (filePaths.Count > 0)
                                 {
                                     await _apiClient.UploadAttachmentsAsync(material.MaterialID, filePaths);
@@ -252,13 +270,52 @@ namespace PartsManager.Client
                         {
                             if (ex.Message.Contains("409") || ex.Message.Contains("Conflict"))
                             {
-                                AppendLog(string.Format(LocalizationService.GetString("Log_Duplicate"), partNo));
+                                // 如果料號衝突，嘗試用入庫方式增加庫存
+                                decimal qty = 0;
+                                if (columnMap.ContainsKey("Stock") && decimal.TryParse(row.Cell(columnMap["Stock"]).GetString(), out decimal isty))
+                                {
+                                    qty = isty;
+                                }
+
+                                if (qty > 0)
+                                {
+                                    try
+                                    {
+                                        var inboundDto = new InboundDto
+                                        {
+                                            WarehouseId = 1,
+                                            Barcode = partNo.ToLower(),
+                                            StorageLocation = columnMap.ContainsKey("StorageLocation") ? row.Cell(columnMap["StorageLocation"]).GetString().Trim() : "",
+                                            Quantity = qty,
+                                            OperatorId = UserSession.Username ?? "SYSTEM"
+                                        };
+                                        await _apiClient.PostInboundAsync(inboundDto);
+                                        AppendLog($"[成功] 料號 {partNo} 已存在，已自動入庫 {qty:N0} 個至儲位 {inboundDto.StorageLocation}");
+                                        successCount++;
+                                    }
+                                    catch (Exception inboundEx)
+                                    {
+                                        AppendLog($"[失敗] 料號 {partNo} 合併入庫失敗: {inboundEx.Message}");
+                                        failCount++;
+                                    }
+                                }
+                                else if (isGroupedPartNo)
+                                {
+                                    // 這是我們自動群組的料號，但沒有數量，視為成功 (因為主檔已建立過)
+                                    AppendLog($"[提示] 料號 {partNo} (同品名型號) 已存在且庫存為 0，略過入庫");
+                                    successCount++;
+                                }
+                                else
+                                {
+                                    AppendLog(string.Format(LocalizationService.GetString("Log_Duplicate"), partNo));
+                                    failCount++;
+                                }
                             }
                             else
                             {
                                 AppendLog(string.Format(LocalizationService.GetString("Log_ApiError"), partNo, ex.Message));
+                                failCount++;
                             }
-                            failCount++;
                         }
                     }
                 }
