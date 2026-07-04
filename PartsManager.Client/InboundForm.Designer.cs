@@ -21,6 +21,8 @@ namespace PartsManager.Client
             this.btnManualInput = new System.Windows.Forms.Button();
             this.txtQty = new System.Windows.Forms.TextBox();
             this.cmbWarehouse = new System.Windows.Forms.ComboBox();
+            this.lblStorageLocation = new System.Windows.Forms.Label();
+            this.cmbStorageLocation = new System.Windows.Forms.ComboBox();
             this.btnInbound = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblMaterialName = new System.Windows.Forms.Label();
@@ -83,7 +85,7 @@ namespace PartsManager.Client
             // 
             this.cmbWarehouse.BackColor = System.Drawing.Color.White;
             this.cmbWarehouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbWarehouse.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cmbWarehouse.Font = new System.Drawing.Font("Microsoft JhengHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cmbWarehouse.ForeColor = System.Drawing.Color.Black;
             this.cmbWarehouse.FormattingEnabled = true;
             this.cmbWarehouse.Location = new System.Drawing.Point(45, 375);
@@ -91,6 +93,30 @@ namespace PartsManager.Client
             this.cmbWarehouse.Name = "cmbWarehouse";
             this.cmbWarehouse.Size = new System.Drawing.Size(433, 44);
             this.cmbWarehouse.TabIndex = 3;
+            // 
+            // lblStorageLocation
+            // 
+            this.lblStorageLocation.AutoSize = true;
+            this.lblStorageLocation.Font = new System.Drawing.Font("Microsoft JhengHei", 11F, System.Drawing.FontStyle.Bold);
+            this.lblStorageLocation.ForeColor = System.Drawing.Color.Gray;
+            this.lblStorageLocation.Location = new System.Drawing.Point(45, 435);
+            this.lblStorageLocation.Name = "lblStorageLocation";
+            this.lblStorageLocation.Size = new System.Drawing.Size(200, 28);
+            this.lblStorageLocation.TabIndex = 6;
+            this.lblStorageLocation.Tag = "Label_StorageLocation";
+            this.lblStorageLocation.Text = "儲位 (Storage Location)";
+            // 
+            // cmbStorageLocation
+            // 
+            this.cmbStorageLocation.BackColor = System.Drawing.Color.White;
+            this.cmbStorageLocation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.cmbStorageLocation.Font = new System.Drawing.Font("Microsoft JhengHei", 14.25F);
+            this.cmbStorageLocation.ForeColor = System.Drawing.Color.Black;
+            this.cmbStorageLocation.FormattingEnabled = true;
+            this.cmbStorageLocation.Location = new System.Drawing.Point(45, 472);
+            this.cmbStorageLocation.Name = "cmbStorageLocation";
+            this.cmbStorageLocation.Size = new System.Drawing.Size(433, 44);
+            this.cmbStorageLocation.TabIndex = 7;
             // 
             // btnInbound
             // 
@@ -198,6 +224,8 @@ namespace PartsManager.Client
             this.pnlLeft.Controls.Add(this.txtQty);
             this.pnlLeft.Controls.Add(this.label3);
             this.pnlLeft.Controls.Add(this.cmbWarehouse);
+            this.pnlLeft.Controls.Add(this.lblStorageLocation);
+            this.pnlLeft.Controls.Add(this.cmbStorageLocation);
             this.pnlLeft.Controls.Add(this.btnInbound);
             this.pnlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlLeft.Location = new System.Drawing.Point(0, 0);
@@ -276,6 +304,8 @@ namespace PartsManager.Client
         private System.Windows.Forms.TextBox txtBarcode;
         private System.Windows.Forms.TextBox txtQty;
         private System.Windows.Forms.ComboBox cmbWarehouse;
+        private System.Windows.Forms.Label lblStorageLocation;
+        private System.Windows.Forms.ComboBox cmbStorageLocation;
         private System.Windows.Forms.Button btnInbound;
         private System.Windows.Forms.Button btnManualInput;
         private System.Windows.Forms.Label lblStatus;

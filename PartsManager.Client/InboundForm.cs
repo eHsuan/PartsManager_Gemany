@@ -26,33 +26,6 @@ namespace PartsManager.Client
             lblStatus.Text = LocalizationService.GetString("Status_Ready"); // 使用資源檔
             btnManualInput.Text = LocalizationService.GetString("Menu_Search") ?? "查詢";
             
-            // 動態加入儲位輸入框
-            var lblStorageLocation = new Label
-            {
-                Text = LocalizationService.GetString("Label_StorageLocation") ?? "儲位 (Storage Location)",
-                Location = new Point(45, 435),
-                AutoSize = true,
-                Font = new Font("Microsoft JhengHei", 11F, FontStyle.Bold),
-                ForeColor = Color.Gray
-            };
-            cmbStorageLocation = new ComboBox
-            {
-                Location = new Point(45, 472),
-                Size = new Size(433, 44),
-                Font = new Font("Microsoft JhengHei", 14.25F),
-                BackColor = Color.White,
-                ForeColor = Color.Black,
-                DropDownStyle = ComboBoxStyle.DropDown // 允許使用者自己輸入新儲位
-            };
-            
-            // 找出 pnlLeft 並將控制項加進去
-            var pnlLeft = this.Controls.Find("pnlLeft", true).FirstOrDefault() as Panel;
-            if (pnlLeft != null)
-            {
-                pnlLeft.Controls.Add(lblStorageLocation);
-                pnlLeft.Controls.Add(cmbStorageLocation);
-            }
-
             await LoadWarehousesAsync();
         }
 

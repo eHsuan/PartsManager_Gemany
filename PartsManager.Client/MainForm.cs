@@ -17,7 +17,6 @@ namespace PartsManager.Client
         private DateTime _lastActivity;
         private int _timeoutMinutes;
         private Panel _navPanel;
-        private ComboBox cmbStorageLocation;
 
         public class WarehouseViewModel
         {
@@ -73,28 +72,6 @@ namespace PartsManager.Client
             timer.Interval = 10000;
             timer.Tick += async (s, ev) => await CheckServerStatusAsync();
             timer.Start();
-
-            // 動態加入 cmbStorageLocation 替換 lblStorageLocation
-            cmbStorageLocation = new ComboBox
-            {
-                Location = lblStorageLocation.Location,
-                Size = new Size(250, 30),
-                Font = lblStorageLocation.Font,
-                DropDownStyle = ComboBoxStyle.DropDownList,
-                BackColor = Color.FromArgb(45, 45, 48),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-            cmbStorageLocation.SelectedIndexChanged += (s, ev) =>
-            {
-                if (cmbStorageLocation.SelectedItem != null)
-                {
-                    dynamic selected = cmbStorageLocation.SelectedItem;
-                    lblCurrentStock.Text = selected.Qty.ToString("N0");
-                }
-            };
-            lblStorageLocation.Parent.Controls.Add(cmbStorageLocation);
-            lblStorageLocation.Visible = false;
         }
 
         private async System.Threading.Tasks.Task CheckServerStatusAsync()
@@ -381,6 +358,15 @@ namespace PartsManager.Client
             else
             {
                 lblCurrentStock.Text = "0";
+            }
+        }
+
+        private void cmbStorageLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbStorageLocation.SelectedItem != null)
+            {
+                dynamic selected = cmbStorageLocation.SelectedItem;
+                lblCurrentStock.Text = selected.Qty.ToString("N0");
             }
         }
 
