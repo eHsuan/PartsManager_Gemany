@@ -103,11 +103,20 @@ namespace PartsManager.Client
                     var distinctLocations = locations.Distinct().ToArray();
                     cmbStorageLocation.Items.AddRange(distinctLocations);
 
-                    // 預設帶出該物料的主儲位或第一個儲位
-                    if (!string.IsNullOrEmpty(info.StorageLocation))
+                    // 預設帶出庫存數量最大的儲位
+                    if (info.Stocks != null && info.Stocks.Any())
+                    {
+                        var maxStock = info.Stocks.OrderByDescending(s => s.Quantity).First();
+                        cmbStorageLocation.Text = maxStock.StorageLocation ?? "";
+                    }
+                    else if (!string.IsNullOrEmpty(info.StorageLocation))
+                    {
                         cmbStorageLocation.Text = info.StorageLocation;
+                    }
                     else if (cmbStorageLocation.Items.Count > 0)
+                    {
                         cmbStorageLocation.SelectedIndex = 0;
+                    }
 
                     txtQty.Focus();
                     txtQty.SelectAll();
