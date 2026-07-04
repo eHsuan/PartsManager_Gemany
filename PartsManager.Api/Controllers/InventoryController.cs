@@ -38,6 +38,7 @@ public class InventoryController : ControllerBase
             {
                 WarehouseId = s.WarehouseID,
                 WarehouseName = s.Warehouse != null ? s.Warehouse.WarehouseCode : string.Empty,
+                StorageLocation = s.StorageLocation ?? string.Empty,
                 Quantity = s.Quantity
             })
             .ToListAsync();
