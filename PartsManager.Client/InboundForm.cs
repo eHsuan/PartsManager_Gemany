@@ -17,13 +17,15 @@ namespace PartsManager.Client
             InitializeComponent();
             UIStyle.Apply(this);
             I18nHelper.Apply(this); 
+            
+            // 將按鈕文字對應到語系
+            btnManualInput.Text = LocalizationService.GetString("Menu_Query");
             _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
         }
 
         private async void InboundForm_Load(object sender, EventArgs e)
         {
             lblStatus.Text = LocalizationService.GetString("Status_Ready"); // 使用資源檔
-            btnManualInput.Text = LocalizationService.GetString("Menu_Search") ?? "查詢";
             
             await LoadWarehousesAsync();
         }
