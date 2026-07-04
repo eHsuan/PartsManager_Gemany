@@ -38,6 +38,31 @@ namespace PartsManager.Api.Services
                 return;
             }
 
+            try
+            {
+                var backups = await _driveService.GetBackupsAsync();
+                var lastAutoBackup = System.Linq.Enumerable.FirstOrDefault(
+                    System.Linq.Enumerable.OrderByDescending(
+                        System.Linq.Enumerable.Where(backups, b => b.FileName.StartsWith("AutoBackup_")),
+                        b => b.CreatedTime));
+
+                if (lastAutoBackup != null)
+                {
+                    TimeSpan elapsed = DateTime.Now - lastAutoBackup.CreatedTime.ToLocalTime();
+                    if (elapsed.TotalHours < _intervalHours)
+                    {
+                        TimeSpan waitTime = TimeSpan.FromHours(_intervalHours) - elapsed;
+                        _logger.LogInformation($"Last auto backup was at {lastAutoBackup.CreatedTime.ToLocalTime()}. Waiting for {waitTime.TotalHours:F2} hours before next backup.");
+                        await Task.Delay(waitTime, stoppingToken);
+                    }
+                }
+            }
+            catch (TaskCanceledException) { return; }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"Initial backup check failed: {ex.Message}. Proceeding to immediate backup.");
+            }
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
