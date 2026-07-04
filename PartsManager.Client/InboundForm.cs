@@ -85,37 +85,29 @@ namespace PartsManager.Client
                     
                     txtBarcode.Text = barcode;
 
-                    // 載入該物料現有的所有儲位
+                    cmbStorageLocation.DataSource = null;
                     cmbStorageLocation.Items.Clear();
-                    var locations = new List<string>();
-                    
-                    // 加入主檔預設儲位
-                    if (!string.IsNullOrEmpty(info.StorageLocation))
-                        locations.Add(info.StorageLocation);
-                        
+
+                    var dataSource = new List<dynamic>();
                     // 加入現有庫存身上的其他儲位
-                    if (info.Stocks != null)
-                    {
-                        locations.AddRange(info.Stocks.Select(s => s.StorageLocation).Where(l => !string.IsNullOrEmpty(l)));
-                    }
-
-                    // 去除重複並綁定
-                    var distinctLocations = locations.Distinct().ToArray();
-                    cmbStorageLocation.Items.AddRange(distinctLocations);
-
-                    // 預設帶出庫存數量最大的儲位
                     if (info.Stocks != null && info.Stocks.Any())
                     {
-                        var maxStock = info.Stocks.OrderByDescending(s => s.Quantity).First();
-                        cmbStorageLocation.Text = maxStock.StorageLocation ?? "";
+                        foreach (var stock in info.Stocks.OrderByDescending(s => s.Quantity))
+                        {
+                            dataSource.Add(new { Display = string.IsNullOrEmpty(stock.StorageLocation) ? "(未設定儲位) - " + stock.Quantity.ToString("N0") : $"{stock.StorageLocation} - {stock.Quantity:N0}", Value = stock.StorageLocation ?? "" });
+                        }
                     }
-                    else if (!string.IsNullOrEmpty(info.StorageLocation))
+                    if (!string.IsNullOrEmpty(info.StorageLocation) && !dataSource.Any(x => x.Value == info.StorageLocation))
                     {
-                        cmbStorageLocation.Text = info.StorageLocation;
+                        dataSource.Insert(0, new { Display = info.StorageLocation, Value = info.StorageLocation });
                     }
-                    else if (cmbStorageLocation.Items.Count > 0)
+
+                    if (dataSource.Any())
                     {
-                        cmbStorageLocation.SelectedIndex = 0;
+                        cmbStorageLocation.DataSource = dataSource;
+                        cmbStorageLocation.DisplayMember = "Display";
+                        cmbStorageLocation.ValueMember = "Value";
+                        cmbStorageLocation.SelectedIndex = 0; // 預設為數量最大的 (因為有做 OrderByDescending) 或主檔預設儲位
                     }
 
                     txtQty.Focus();
@@ -168,7 +160,7 @@ namespace PartsManager.Client
                 {
                     WarehouseId = targetWarehouseId,
                     Barcode = barcode,
-                    StorageLocation = cmbStorageLocation.Text.Trim(),
+                    StorageLocation = (cmbStorageLocation.SelectedValue?.ToString() ?? cmbStorageLocation.Text).Trim(),
                     Quantity = qty,
                     OperatorId = UserSession.Username
                 };
@@ -181,8 +173,9 @@ namespace PartsManager.Client
                     
                     txtBarcode.Clear();
                     txtQty.Text = "1";
-                    cmbStorageLocation.Text = "";
+                    cmbStorageLocation.DataSource = null;
                     cmbStorageLocation.Items.Clear();
+                    cmbStorageLocation.Text = "";
                     lblMaterialName.Text = "--";
                     lblSpecification.Text = "--";
                     txtBarcode.Focus();

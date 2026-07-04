@@ -341,7 +341,7 @@ namespace PartsManager.Client
             int warehouseId = (int)(cmbWarehouse.SelectedValue ?? 0);
             var stocks = material.Stocks?.Where(s => s.WarehouseId == warehouseId).ToList() ?? new List<StockDetailDto>();
             
-            var dataSource = stocks.OrderBy(s => s.Quantity).Select(s => new {
+            var dataSource = stocks.OrderBy(s => s.Quantity == 0 ? 1 : 0).ThenBy(s => s.Quantity).Select(s => new {
                 Display = string.IsNullOrEmpty(s.StorageLocation) ? "(未設定儲位) - " + s.Quantity.ToString("N0") : $"{s.StorageLocation} - {s.Quantity:N0}",
                 Value = s.StorageLocation ?? "",
                 Qty = s.Quantity
