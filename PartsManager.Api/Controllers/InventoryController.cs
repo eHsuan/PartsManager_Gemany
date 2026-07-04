@@ -186,14 +186,15 @@ public class InventoryController : ControllerBase
                                    (m.Specification != null && m.Specification.ToLower().Contains(normalizedQuery)) ||
                                    (m.Manufacturer != null && m.Manufacturer.ToLower().Contains(normalizedQuery)) ||
                                    (m.ManufacturerNo != null && m.ManufacturerNo.ToLower().Contains(normalizedQuery)) ||
-                                   (m.StorageLocation != null && m.StorageLocation.ToLower().Contains(normalizedQuery))
+                                   (m.StorageLocation != null && m.StorageLocation.ToLower().Contains(normalizedQuery)) ||
+                                   (s != null && s.StorageLocation != null && s.StorageLocation.ToLower().Contains(normalizedQuery))
                              select new SparePartSearchResultDto
                              {
                                  MaterialId = m.MaterialID,
                                  PartNo = m.PartNo,
                                  Name = m.Name,
                                  Specification = m.Specification ?? string.Empty,
-                                 StorageLocation = m.StorageLocation ?? string.Empty,
+                                 StorageLocation = (s != null && !string.IsNullOrEmpty(s.StorageLocation)) ? s.StorageLocation : (m.StorageLocation ?? string.Empty),
                                  Manufacturer = m.Manufacturer ?? string.Empty,
                                  ManufacturerNo = m.ManufacturerNo ?? string.Empty,
                                  SafeStockQty = m.SafeStockQty,
