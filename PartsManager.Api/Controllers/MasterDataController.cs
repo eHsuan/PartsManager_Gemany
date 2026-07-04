@@ -152,6 +152,7 @@ public class MasterDataController : ControllerBase
                 MaterialID = material.MaterialID,
                 WarehouseID = targetWhId,
                 Quantity = dto.InitialStock,
+                StorageLocation = dto.StorageLocation,
                 LastUpdated = DateTime.Now
             };
             _context.Inv_CurrentStock.Add(stock);
@@ -226,6 +227,7 @@ public class MasterDataController : ControllerBase
                     MaterialID = id,
                     WarehouseID = targetWhId,
                     Quantity = dto.CurrentStock,
+                    StorageLocation = dto.StorageLocation,
                     LastUpdated = DateTime.Now
                 };
                 _context.Inv_CurrentStock.Add(stock);
