@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Configuration;
+using System.Collections.Generic;
 using PartsManager.Shared.DTOs;
 using PartsManager.Shared.Resources;
 

@@ -290,4 +290,5 @@
   <data name="Msg_LoadBackupFailed" xml:space="preserve"><value>Laden des Backups fehlgeschlagen: </value></data>
   <data name="Msg_TriggerRestoreFailed" xml:space="preserve"><value>Wiederherstellung konnte nicht ausgelöst werden: </value></data>
   <data name="Msg_GeneratePartNoFailed" xml:space="preserve"><value>Fehler beim Generieren der Teilenummer: </value></data>
+  <data name="Label_StorageLocation" xml:space="preserve"><value>Lagerort</value></data>
 </root>

@@ -290,4 +290,5 @@
   <data name="Msg_LoadBackupFailed" xml:space="preserve"><value>載入備份失敗：</value></data>
   <data name="Msg_TriggerRestoreFailed" xml:space="preserve"><value>觸發還原失敗：</value></data>
   <data name="Msg_GeneratePartNoFailed" xml:space="preserve"><value>產生料號失敗：</value></data>
+  <data name="Label_StorageLocation" xml:space="preserve"><value>儲位 (Storage Location)</value></data>
 </root>
