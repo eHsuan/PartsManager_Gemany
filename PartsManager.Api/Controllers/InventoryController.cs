@@ -222,8 +222,32 @@ public class InventoryController : ControllerBase
         {
             _context.Inv_CurrentStock.Remove(stock);
             await _context.SaveChangesAsync();
+        }
+
+        // 檢查是否還有其他庫存紀錄
+        bool hasOtherStock = await _context.Inv_CurrentStock.AnyAsync(s => s.MaterialID == materialId);
+        if (!hasOtherStock)
+        {
+            // 沒有庫存了，連同主檔及附件一起刪除
+            var material = await _context.Mdm_Materials.FindAsync(materialId);
+            if (material != null)
+            {
+                // 刪除附件紀錄
+                var attachments = _context.Mdm_MaterialAttachments.Where(a => a.MaterialID == materialId);
+                _context.Mdm_MaterialAttachments.RemoveRange(attachments);
+
+                _context.Mdm_Materials.Remove(material);
+                await _context.SaveChangesAsync();
+                
+                return Ok(new { message = stock != null ? "刪除庫存紀錄及物料主檔成功" : "刪除無庫存物料成功" });
+            }
+        }
+
+        if (stock != null)
+        {
             return Ok(new { message = "刪除庫存紀錄成功" });
         }
+
         return NotFound(new { message = "找不到該儲位的庫存紀錄" });
     }
 }
