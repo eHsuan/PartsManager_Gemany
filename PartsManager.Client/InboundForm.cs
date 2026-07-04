@@ -25,7 +25,7 @@ namespace PartsManager.Client
                 Font = new Font("Microsoft JhengHei", 12F, FontStyle.Bold),
                 ForeColor = Color.Orange,
                 Location = new Point(45, cmbStorageLocation.Top), // 原本 combobox 的位置
-                Text = "目前庫存: 0"
+                Text = LocalizationService.GetString("Label_CurrentStock") + " 0"
             };
             pnlLeft.Controls.Add(lblCurrentStorageStock);
 
@@ -52,16 +52,16 @@ namespace PartsManager.Client
                 try
                 {
                     decimal qty = selected.Qty;
-                    lblCurrentStorageStock.Text = $"目前庫存: {qty:N0}";
+                    lblCurrentStorageStock.Text = LocalizationService.GetString("Label_CurrentStock") + $" {qty:N0}";
                 }
                 catch
                 {
-                    lblCurrentStorageStock.Text = "目前庫存: 0";
+                    lblCurrentStorageStock.Text = LocalizationService.GetString("Label_CurrentStock") + " 0";
                 }
             }
             else
             {
-                lblCurrentStorageStock.Text = "目前庫存: 0";
+                lblCurrentStorageStock.Text = LocalizationService.GetString("Label_CurrentStock") + " 0";
             }
         }
 
