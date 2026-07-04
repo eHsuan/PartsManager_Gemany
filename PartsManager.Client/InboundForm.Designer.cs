@@ -99,7 +99,7 @@ namespace PartsManager.Client
             this.btnInbound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInbound.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold);
             this.btnInbound.ForeColor = System.Drawing.Color.White;
-            this.btnInbound.Location = new System.Drawing.Point(45, 532);
+            this.btnInbound.Location = new System.Drawing.Point(45, 590);
             this.btnInbound.Margin = new System.Windows.Forms.Padding(4);
             this.btnInbound.Name = "btnInbound";
             this.btnInbound.Size = new System.Drawing.Size(435, 75);
@@ -203,7 +203,7 @@ namespace PartsManager.Client
             this.pnlLeft.Location = new System.Drawing.Point(0, 0);
             this.pnlLeft.Margin = new System.Windows.Forms.Padding(4);
             this.pnlLeft.Name = "pnlLeft";
-            this.pnlLeft.Size = new System.Drawing.Size(525, 675);
+            this.pnlLeft.Size = new System.Drawing.Size(525, 750);
             this.pnlLeft.TabIndex = 0;
             // 
             // pnlRight
@@ -218,7 +218,7 @@ namespace PartsManager.Client
             this.pnlRight.Location = new System.Drawing.Point(525, 0);
             this.pnlRight.Margin = new System.Windows.Forms.Padding(4);
             this.pnlRight.Name = "pnlRight";
-            this.pnlRight.Size = new System.Drawing.Size(1225, 675);
+            this.pnlRight.Size = new System.Drawing.Size(1225, 750);
             this.pnlRight.TabIndex = 1;
             // 
             // label4
@@ -252,7 +252,7 @@ namespace PartsManager.Client
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(1750, 675);
+            this.ClientSize = new System.Drawing.Size(1750, 750);
             this.Controls.Add(this.pnlRight);
             this.Controls.Add(this.pnlLeft);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
