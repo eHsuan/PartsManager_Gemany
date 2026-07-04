@@ -10,7 +10,7 @@ namespace PartsManager.Client
     public partial class InboundForm : Form
     {
         private readonly ApiClient _apiClient;
-        private TextBox txtStorageLocation;
+        private ComboBox cmbStorageLocation;
 
         public InboundForm()
         {
@@ -33,13 +33,14 @@ namespace PartsManager.Client
                 Font = new Font("Microsoft JhengHei", 11F, FontStyle.Bold),
                 ForeColor = Color.Gray
             };
-            txtStorageLocation = new TextBox
+            cmbStorageLocation = new ComboBox
             {
                 Location = new Point(45, 472),
                 Size = new Size(433, 44),
                 Font = new Font("Microsoft JhengHei", 14.25F),
                 BackColor = Color.White,
-                ForeColor = Color.Black
+                ForeColor = Color.Black,
+                DropDownStyle = ComboBoxStyle.DropDown // 允許使用者自己輸入新儲位
             };
             
             // 找出 pnlLeft 並將控制項加進去
@@ -47,7 +48,7 @@ namespace PartsManager.Client
             if (pnlLeft != null)
             {
                 pnlLeft.Controls.Add(lblStorageLocation);
-                pnlLeft.Controls.Add(txtStorageLocation);
+                pnlLeft.Controls.Add(cmbStorageLocation);
             }
 
             await LoadWarehousesAsync();
@@ -108,8 +109,19 @@ namespace PartsManager.Client
                     
                     txtBarcode.Text = barcode;
 
-                    // 預設帶出該物料的主儲位
-                    txtStorageLocation.Text = info.StorageLocation ?? "";
+                    // 載入該物料現有的所有儲位
+                    cmbStorageLocation.Items.Clear();
+                    if (info.Stocks != null)
+                    {
+                        var locations = info.Stocks.Select(s => s.StorageLocation).Where(l => !string.IsNullOrEmpty(l)).Distinct().ToArray();
+                        cmbStorageLocation.Items.AddRange(locations);
+                    }
+
+                    // 預設帶出該物料的主儲位或第一個儲位
+                    if (!string.IsNullOrEmpty(info.StorageLocation))
+                        cmbStorageLocation.Text = info.StorageLocation;
+                    else if (cmbStorageLocation.Items.Count > 0)
+                        cmbStorageLocation.SelectedIndex = 0;
 
                     txtQty.Focus();
                     txtQty.SelectAll();
@@ -189,7 +201,7 @@ namespace PartsManager.Client
                 {
                     WarehouseId = targetWarehouseId,
                     Barcode = barcode,
-                    StorageLocation = txtStorageLocation.Text.Trim(),
+                    StorageLocation = cmbStorageLocation.Text.Trim(),
                     Quantity = qty,
                     OperatorId = UserSession.Username
                 };
@@ -202,7 +214,8 @@ namespace PartsManager.Client
                     
                     txtBarcode.Clear();
                     txtQty.Text = "1";
-                    txtStorageLocation.Clear();
+                    cmbStorageLocation.Text = "";
+                    cmbStorageLocation.Items.Clear();
                     lblMaterialName.Text = "--";
                     lblSpecification.Text = "--";
                     txtBarcode.Focus();
