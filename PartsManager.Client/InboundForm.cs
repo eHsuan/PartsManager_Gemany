@@ -10,6 +10,7 @@ namespace PartsManager.Client
     public partial class InboundForm : Form
     {
         private readonly ApiClient _apiClient;
+        private TextBox txtStorageLocation;
 
         public InboundForm()
         {
@@ -22,6 +23,33 @@ namespace PartsManager.Client
         private async void InboundForm_Load(object sender, EventArgs e)
         {
             lblStatus.Text = LocalizationService.GetString("Status_Ready"); // 使用資源檔
+            
+            // 動態加入儲位輸入框
+            var lblStorageLocation = new Label
+            {
+                Text = LocalizationService.GetString("Label_StorageLocation") ?? "儲位 (Storage Location)",
+                Location = new Point(45, 435),
+                AutoSize = true,
+                Font = new Font("Microsoft JhengHei", 11F, FontStyle.Bold),
+                ForeColor = Color.Gray
+            };
+            txtStorageLocation = new TextBox
+            {
+                Location = new Point(45, 472),
+                Size = new Size(433, 44),
+                Font = new Font("Microsoft JhengHei", 14.25F),
+                BackColor = Color.White,
+                ForeColor = Color.Black
+            };
+            
+            // 找出 pnlLeft 並將控制項加進去
+            var pnlLeft = this.Controls.Find("pnlLeft", true).FirstOrDefault() as Panel;
+            if (pnlLeft != null)
+            {
+                pnlLeft.Controls.Add(lblStorageLocation);
+                pnlLeft.Controls.Add(txtStorageLocation);
+            }
+
             await LoadWarehousesAsync();
         }
 
@@ -79,6 +107,9 @@ namespace PartsManager.Client
                     lblStatus.ForeColor = Color.Lime;
                     
                     txtBarcode.Text = barcode;
+
+                    // 預設帶出該物料的主儲位
+                    txtStorageLocation.Text = info.StorageLocation ?? "";
 
                     txtQty.Focus();
                     txtQty.SelectAll();
@@ -158,6 +189,7 @@ namespace PartsManager.Client
                 {
                     WarehouseId = targetWarehouseId,
                     Barcode = barcode,
+                    StorageLocation = txtStorageLocation.Text.Trim(),
                     Quantity = qty,
                     OperatorId = UserSession.Username
                 };
@@ -170,6 +202,7 @@ namespace PartsManager.Client
                     
                     txtBarcode.Clear();
                     txtQty.Text = "1";
+                    txtStorageLocation.Clear();
                     lblMaterialName.Text = "--";
                     lblSpecification.Text = "--";
                     txtBarcode.Focus();

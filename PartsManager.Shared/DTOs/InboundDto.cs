@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PartsManager.Shared.DTOs
@@ -10,6 +10,8 @@ namespace PartsManager.Shared.DTOs
 
         [Required]
         public string Barcode { get; set; } = string.Empty;
+
+        public string StorageLocation { get; set; } = string.Empty;
 
         [Range(0.01, double.MaxValue)]
         public decimal Quantity { get; set; }

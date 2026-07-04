@@ -16,6 +16,7 @@ namespace PartsManager.Client
         private DateTime _lastActivity;
         private int _timeoutMinutes;
         private Panel _navPanel;
+        private ComboBox cmbStorageLocation;
 
         public class WarehouseViewModel
         {
@@ -71,6 +72,28 @@ namespace PartsManager.Client
             timer.Interval = 10000;
             timer.Tick += async (s, ev) => await CheckServerStatusAsync();
             timer.Start();
+
+            // 動態加入 cmbStorageLocation 替換 lblStorageLocation
+            cmbStorageLocation = new ComboBox
+            {
+                Location = lblStorageLocation.Location,
+                Size = new Size(250, 30),
+                Font = lblStorageLocation.Font,
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                BackColor = Color.FromArgb(45, 45, 48),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            cmbStorageLocation.SelectedIndexChanged += (s, ev) =>
+            {
+                if (cmbStorageLocation.SelectedItem != null)
+                {
+                    dynamic selected = cmbStorageLocation.SelectedItem;
+                    lblCurrentStock.Text = selected.Qty.ToString("N0");
+                }
+            };
+            lblStorageLocation.Parent.Controls.Add(cmbStorageLocation);
+            lblStorageLocation.Visible = false;
         }
 
         private async System.Threading.Tasks.Task CheckServerStatusAsync()
@@ -336,11 +359,28 @@ namespace PartsManager.Client
         {
             lblMaterialName.Text = material.Name;
             lblSpecification.Text = material.Specification ?? "--";
-            lblStorageLocation.Text = string.IsNullOrEmpty(material.StorageLocation) ? "--" : material.StorageLocation;
             
             int warehouseId = (int)(cmbWarehouse.SelectedValue ?? 0);
-            var stock = material.Stocks?.FirstOrDefault(s => s.WarehouseId == warehouseId);
-            lblCurrentStock.Text = (stock?.Quantity ?? 0).ToString("N0");
+            var stocks = material.Stocks?.Where(s => s.WarehouseId == warehouseId).ToList() ?? new List<StockDetailDto>();
+            
+            var dataSource = stocks.Select(s => new {
+                Display = string.IsNullOrEmpty(s.StorageLocation) ? "(未設定儲位) - " + s.Quantity.ToString("N0") : $"{s.StorageLocation} - {s.Quantity:N0}",
+                Value = s.StorageLocation ?? "",
+                Qty = s.Quantity
+            }).ToList();
+
+            cmbStorageLocation.DataSource = null;
+            if (dataSource.Any())
+            {
+                cmbStorageLocation.DataSource = dataSource;
+                cmbStorageLocation.DisplayMember = "Display";
+                cmbStorageLocation.ValueMember = "Value";
+                cmbStorageLocation.SelectedIndex = 0;
+            }
+            else
+            {
+                lblCurrentStock.Text = "0";
+            }
         }
 
         private void ResetInfo()
@@ -348,7 +388,7 @@ namespace PartsManager.Client
             _currentMaterial = null;
             lblMaterialName.Text = "--";
             lblSpecification.Text = "--";
-            lblStorageLocation.Text = "--";
+            cmbStorageLocation.DataSource = null;
             lblCurrentStock.Text = "0";
         }
 
@@ -374,6 +414,7 @@ namespace PartsManager.Client
                 {
                     Barcode = _currentMaterial.Barcode,
                     WarehouseId = (int)cmbWarehouse.SelectedValue,
+                    StorageLocation = cmbStorageLocation.SelectedValue?.ToString() ?? "",
                     Quantity = qty,
                     OperatorId = UserSession.Username
                 };
@@ -381,7 +422,7 @@ namespace PartsManager.Client
                 var result = await _apiClient.PostOutboundAsync(dto);
                 if (result.IsSuccess)
                 {
-                    using (var popup = new LocationPopupForm(_currentMaterial.StorageLocation))
+                    using (var popup = new LocationPopupForm(cmbStorageLocation.SelectedValue?.ToString() ?? ""))
                     {
                         popup.ShowDialog(this);
                     }

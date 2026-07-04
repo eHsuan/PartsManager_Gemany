@@ -1,4 +1,4 @@
-﻿using PartsManager.Api.Data;
+using PartsManager.Api.Data;
 using PartsManager.Shared.DTOs;
 using PartsManager.Api.Entities;
 using PartsManager.Shared.Resources;
@@ -31,7 +31,7 @@ public class StockService : IStockService
             }
 
             var stock = await _context.Inv_CurrentStock
-                .FirstOrDefaultAsync(s => s.MaterialID == material.MaterialID && s.WarehouseID == dto.WarehouseId);
+                .FirstOrDefaultAsync(s => s.MaterialID == material.MaterialID && s.WarehouseID == dto.WarehouseId && s.StorageLocation == (dto.StorageLocation ?? string.Empty));
 
             decimal afterQty = 0;
 
@@ -48,6 +48,7 @@ public class StockService : IStockService
                 {
                     MaterialID = material.MaterialID,
                     WarehouseID = dto.WarehouseId,
+                    StorageLocation = dto.StorageLocation ?? string.Empty,
                     Quantity = dto.Quantity,
                     LastUpdated = DateTime.Now
                 };
@@ -60,6 +61,7 @@ public class StockService : IStockService
                 TransType = "IN",
                 MaterialID = material.MaterialID,
                 WarehouseID = dto.WarehouseId,
+                StorageLocation = dto.StorageLocation ?? string.Empty,
                 ChangeQty = dto.Quantity,
                 AfterQty = afterQty,
                 ReasonCode = "Inbound", 
@@ -94,7 +96,7 @@ public class StockService : IStockService
             }
 
             var stock = await _context.Inv_CurrentStock
-                .FirstOrDefaultAsync(s => s.MaterialID == material.MaterialID && s.WarehouseID == dto.WarehouseId);
+                .FirstOrDefaultAsync(s => s.MaterialID == material.MaterialID && s.WarehouseID == dto.WarehouseId && s.StorageLocation == (dto.StorageLocation ?? string.Empty));
 
             if (stock == null || stock.Quantity < dto.Quantity)
             {
@@ -112,6 +114,7 @@ public class StockService : IStockService
                 TransType = "OUT",
                 MaterialID = material.MaterialID,
                 WarehouseID = dto.WarehouseId,
+                StorageLocation = dto.StorageLocation ?? string.Empty,
                 ChangeQty = -dto.Quantity,
                 AfterQty = afterQty,
                 ReasonCode = dto.ReasonCode ?? "Outbound",
