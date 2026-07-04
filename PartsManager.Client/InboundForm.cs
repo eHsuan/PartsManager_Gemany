@@ -11,7 +11,6 @@ namespace PartsManager.Client
     public partial class InboundForm : Form
     {
         private readonly ApiClient _apiClient;
-        private ComboBox cmbStorageLocation;
 
         public InboundForm()
         {
