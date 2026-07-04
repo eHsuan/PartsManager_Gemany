@@ -47,7 +47,7 @@ namespace PartsManager.Client
             this.txtBarcode.Location = new System.Drawing.Point(45, 154);
             this.txtBarcode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBarcode.Name = "txtBarcode";
-            this.txtBarcode.Size = new System.Drawing.Size(629, 55);
+            this.txtBarcode.Size = new System.Drawing.Size(1000, 55);
             this.txtBarcode.TabIndex = 1;
             this.txtBarcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcode_KeyDown);
             // 
@@ -187,7 +187,7 @@ namespace PartsManager.Client
             this.pnlInfo.Location = new System.Drawing.Point(45, 230);
             this.pnlInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlInfo.Name = "pnlInfo";
-            this.pnlInfo.Size = new System.Drawing.Size(629, 299);
+            this.pnlInfo.Size = new System.Drawing.Size(1000, 299);
             this.pnlInfo.TabIndex = 4;
             // 
             // label2
@@ -281,7 +281,7 @@ namespace PartsManager.Client
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(1360, 583);
+            this.ClientSize = new System.Drawing.Size(1360, 900);
             this.Controls.Add(this.lblServerStatus);
             this.Controls.Add(this.pnlServerStatus);
             this.Controls.Add(this.cmbWarehouse);
