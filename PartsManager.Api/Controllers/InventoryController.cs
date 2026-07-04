@@ -210,4 +210,19 @@ public class InventoryController : ControllerBase
 
         return Ok(results);
     }
+
+    [HttpDelete("stock/{materialId}")]
+    public async Task<IActionResult> DeleteStock(int materialId, [FromQuery] string storageLocation = "")
+    {
+        var stock = await _context.Inv_CurrentStock
+            .FirstOrDefaultAsync(s => s.MaterialID == materialId && (s.StorageLocation == storageLocation || (s.StorageLocation == null && storageLocation == "")));
+
+        if (stock != null)
+        {
+            _context.Inv_CurrentStock.Remove(stock);
+            await _context.SaveChangesAsync();
+            return Ok(new { message = "刪除庫存紀錄成功" });
+        }
+        return NotFound(new { message = "找不到該儲位的庫存紀錄" });
+    }
 }

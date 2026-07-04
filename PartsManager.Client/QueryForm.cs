@@ -275,7 +275,7 @@ namespace PartsManager.Client
                 var item = dgvResults.SelectedRows[0].DataBoundItem as SparePartSearchResultDto;
                 if (item != null)
                 {
-                    string confirmMsg = string.Format(LocalizationService.GetString("Msg_DeleteConfirm"), item.Name, item.PartNo);
+                    string confirmMsg = $"確定要刪除物料 {item.Name} ({item.PartNo}) 在儲位「{item.StorageLocation}」的庫存紀錄嗎？";
                     var result = MessageBox.Show(confirmMsg, 
                         LocalizationService.GetString("Menu_Delete"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     
@@ -283,7 +283,7 @@ namespace PartsManager.Client
                     {
                         try
                         {
-                            await _apiClient.DeleteMaterialAsync(item.MaterialId);
+                            await _apiClient.DeleteStockLocationAsync(item.MaterialId, item.StorageLocation);
                             MessageBox.Show(LocalizationService.GetString("Msg_DeleteSuccess"), 
                                 LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                             btnSearch.PerformClick();

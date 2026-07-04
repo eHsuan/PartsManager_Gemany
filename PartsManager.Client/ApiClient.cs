@@ -215,8 +215,19 @@ namespace PartsManager.Client
 
             if (!response.IsSuccessStatusCode)
             {
-                var errorJson = await response.Content.ReadAsStringAsync();
-                throw new Exception("DeleteMaterial Error: " + response.StatusCode + " " + errorJson);
+                var responseJson = await response.Content.ReadAsStringAsync();
+                throw new Exception("Delete Error: " + response.StatusCode + " " + responseJson);
+            }
+        }
+
+        public async Task DeleteStockLocationAsync(int materialId, string storageLocation)
+        {
+            var response = await _client.DeleteAsync($"api/inventory/stock/{materialId}?storageLocation={Uri.EscapeDataString(storageLocation ?? "")}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var responseJson = await response.Content.ReadAsStringAsync();
+                throw new Exception("Delete Error: " + response.StatusCode + " " + responseJson);
             }
         }
 
