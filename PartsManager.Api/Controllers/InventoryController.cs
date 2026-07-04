@@ -203,6 +203,7 @@ public class InventoryController : ControllerBase
                                  LeadTimeDays = m.LeadTimeDays,
                                  Quantity = s != null ? s.Quantity : 0,
                                  WarehouseName = w != null ? $"{w.WarehouseCode} - {w.WarehouseName}" : "--- (無庫存紀錄)",
+                                 WarehouseId = w != null ? (int?)w.WarehouseID : null,
                                  AttachmentFileNames = _context.Mdm_MaterialAttachments
                                     .Where(a => a.MaterialID == m.MaterialID)
                                     .Select(a => a.FileName).ToList()

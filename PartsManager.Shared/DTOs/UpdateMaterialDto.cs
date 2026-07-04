@@ -14,6 +14,7 @@ namespace PartsManager.Shared.DTOs
         public string Specification { get; set; }
 
         public string StorageLocation { get; set; } = string.Empty;
+        public string OldStorageLocation { get; set; } = string.Empty;
 
         public int SafeStockQty { get; set; }
 

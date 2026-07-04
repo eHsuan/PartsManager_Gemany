@@ -1,4 +1,4 @@
-﻿namespace PartsManager.Shared.DTOs
+namespace PartsManager.Shared.DTOs
 {
     public class SparePartSearchResultDto
     {
@@ -9,6 +9,7 @@
         public string StorageLocation { get; set; } = string.Empty;
         public string Manufacturer { get; set; } = string.Empty;
         public string ManufacturerNo { get; set; } = string.Empty;
+        public int? WarehouseId { get; set; }
         public string WarehouseName { get; set; }
         public decimal Quantity { get; set; }
         public int SafeStockQty { get; set; }

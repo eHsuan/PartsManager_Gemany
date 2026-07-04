@@ -32,9 +32,16 @@ namespace PartsManager.Client
             this.Load += MaterialCreationForm_Load;
         }
 
-        public MaterialCreationForm(int materialId) : this()
+        private int? _targetWarehouseId;
+        private string _targetStorageLocation;
+        private decimal? _targetQuantity;
+
+        public MaterialCreationForm(int materialId, int? targetWarehouseId = null, string targetStorageLocation = null, decimal? targetQuantity = null) : this()
         {
             _materialId = materialId;
+            _targetWarehouseId = targetWarehouseId;
+            _targetStorageLocation = targetStorageLocation;
+            _targetQuantity = targetQuantity;
             this.Tag = "MaterialEditForm"; // 修改 Tag 以觸發編輯模式標題翻譯
             I18nHelper.Apply(this); // 再次套用，切換標題
         }
@@ -57,7 +64,21 @@ namespace PartsManager.Client
                         txtPartNo.Text = material.PartNo;
                         txtName.Text = material.Name;
                         txtSpec.Text = material.Specification;
-                        txtStorageLocation.Text = material.StorageLocation;
+                        
+                        // 優先顯示目標儲位與庫存
+                        if (_targetStorageLocation != null)
+                        {
+                            txtStorageLocation.Text = _targetStorageLocation;
+                            // 這裡由於 get material 尚未返回針對特定儲位的數量，我們依賴傳入的儲位，
+                            // 其實我們可能還需要 quantity，但為了避免 API 更改，我們可以在 QueryForm 把點選的 quantity 先帶過來，
+                            // 但既然 MaterialDto 沒有，我們可以選擇不改 quantity，或要求 api。
+                            // 但我們沒有傳入 Quantity，我們至少能把 StorageLocation 顯示正確。
+                        }
+                        else
+                        {
+                            txtStorageLocation.Text = material.StorageLocation;
+                        }
+
                         numSafeStock.Value = material.SafeStockQty;
                         numLeadTime.Value = material.LeadTimeDays;
                         numPrice.Value = material.Price;
@@ -65,8 +86,20 @@ namespace PartsManager.Client
                         btnGenTempPartNo.Enabled = false;
 
                         // 顯示庫存與倉庫
-                        numInitialStock.Value = material.CurrentStock;
-                        if (material.WarehouseId.HasValue)
+                        if (_targetQuantity.HasValue)
+                        {
+                            numInitialStock.Value = _targetQuantity.Value;
+                        }
+                        else
+                        {
+                            numInitialStock.Value = material.CurrentStock;
+                        }
+
+                        if (_targetWarehouseId.HasValue)
+                        {
+                            cmbInitialWarehouse.SelectedValue = _targetWarehouseId.Value;
+                        }
+                        else if (material.WarehouseId.HasValue)
                         {
                             cmbInitialWarehouse.SelectedValue = material.WarehouseId.Value;
                         }
@@ -262,7 +295,8 @@ namespace PartsManager.Client
                         ManufacturerNo = txtManufacturerNo.Text.Trim(),
                         CurrentStock = numInitialStock.Value,
                         WarehouseId = (int?)cmbInitialWarehouse.SelectedValue,
-                        OperatorID = UserSession.Username ?? "SYSTEM"
+                        OperatorID = UserSession.Username ?? "SYSTEM",
+                        OldStorageLocation = _targetStorageLocation ?? string.Empty
                     };
                     await _apiClient.UpdateMaterialAsync(finalMaterialId, dto);
                 }

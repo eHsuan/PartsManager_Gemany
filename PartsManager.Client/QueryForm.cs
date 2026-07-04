@@ -259,7 +259,7 @@ namespace PartsManager.Client
                 var item = dgvResults.SelectedRows[0].DataBoundItem as SparePartSearchResultDto;
                 if (item != null)
                 {
-                    var form = new MaterialCreationForm(item.MaterialId);
+                    var form = new MaterialCreationForm(item.MaterialId, item.WarehouseId, item.StorageLocation, item.Quantity);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         btnSearch.PerformClick();

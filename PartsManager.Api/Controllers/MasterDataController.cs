@@ -215,12 +215,20 @@ public class MasterDataController : ControllerBase
         material.ManufacturerNo = dto.ManufacturerNo ?? string.Empty;
 
         int targetWhId = dto.WarehouseId ?? 1;
-        var stock = await _context.Inv_CurrentStock.FirstOrDefaultAsync(s => s.MaterialID == id && s.WarehouseID == targetWhId);
+        
+        var query = _context.Inv_CurrentStock.Where(s => s.MaterialID == id && s.WarehouseID == targetWhId);
+        if (!string.IsNullOrEmpty(dto.OldStorageLocation))
+        {
+            query = query.Where(s => s.StorageLocation == dto.OldStorageLocation);
+        }
+        var stock = await query.FirstOrDefaultAsync();
+        
         decimal oldQty = stock?.Quantity ?? 0;
 
-        if (dto.CurrentStock != oldQty)
+        bool stockChanged = false;
+        if (stock == null)
         {
-            if (stock == null)
+            if (dto.CurrentStock > 0 || !string.IsNullOrEmpty(dto.StorageLocation))
             {
                 stock = new Inv_CurrentStock
                 {
@@ -231,13 +239,22 @@ public class MasterDataController : ControllerBase
                     LastUpdated = DateTime.Now
                 };
                 _context.Inv_CurrentStock.Add(stock);
+                stockChanged = true;
             }
-            else
+        }
+        else
+        {
+            if (stock.Quantity != dto.CurrentStock || stock.StorageLocation != dto.StorageLocation)
             {
                 stock.Quantity = dto.CurrentStock;
+                stock.StorageLocation = dto.StorageLocation;
                 stock.LastUpdated = DateTime.Now;
+                stockChanged = true;
             }
+        }
 
+        if (stockChanged && dto.CurrentStock != oldQty)
+        {
             _context.Inv_Transactions.Add(new Inv_Transactions
             {
                 MaterialID = id,
