@@ -23,6 +23,7 @@ namespace PartsManager.Client
         private async void InboundForm_Load(object sender, EventArgs e)
         {
             lblStatus.Text = LocalizationService.GetString("Status_Ready"); // 使用資源檔
+            btnManualInput.Text = LocalizationService.GetString("Menu_Search") ?? "查詢";
             
             // 動態加入儲位輸入框
             var lblStorageLocation = new Label
@@ -111,11 +112,21 @@ namespace PartsManager.Client
 
                     // 載入該物料現有的所有儲位
                     cmbStorageLocation.Items.Clear();
+                    var locations = new List<string>();
+                    
+                    // 加入主檔預設儲位
+                    if (!string.IsNullOrEmpty(info.StorageLocation))
+                        locations.Add(info.StorageLocation);
+                        
+                    // 加入現有庫存身上的其他儲位
                     if (info.Stocks != null)
                     {
-                        var locations = info.Stocks.Select(s => s.StorageLocation).Where(l => !string.IsNullOrEmpty(l)).Distinct().ToArray();
-                        cmbStorageLocation.Items.AddRange(locations);
+                        locations.AddRange(info.Stocks.Select(s => s.StorageLocation).Where(l => !string.IsNullOrEmpty(l)));
                     }
+
+                    // 去除重複並綁定
+                    var distinctLocations = locations.Distinct().ToArray();
+                    cmbStorageLocation.Items.AddRange(distinctLocations);
 
                     // 預設帶出該物料的主儲位或第一個儲位
                     if (!string.IsNullOrEmpty(info.StorageLocation))
@@ -139,38 +150,10 @@ namespace PartsManager.Client
 
         private async void btnManualInput_Click(object sender, EventArgs e)
         {
-            string promptMsg = LocalizationService.GetString("Dialog_ManualInputLabel");
-            string promptTitle = LocalizationService.GetString("Dialog_ManualInputTitle");
-            
-            string input = Prompt.ShowDialog(promptMsg, promptTitle);
-            if (string.IsNullOrWhiteSpace(input)) return;
+            string barcode = txtBarcode.Text.Trim().ToLower();
+            if (string.IsNullOrEmpty(barcode)) return;
 
-            try 
-            {
-                var info = await _apiClient.GetInventoryAsync(input);
-                lblMaterialName.Text = info.Name;
-                lblSpecification.Text = LocalizationService.GetString("Label_PartNoPrefix") + info.PartNo;
-                lblStatus.Text = LocalizationService.GetString("Status_IdentifySuccess");
-                lblStatus.ForeColor = Color.Lime;
-                txtBarcode.Text = input;
-                MessageBox.Show(LocalizationService.GetString("Msg_SearchSuccess"), 
-                    LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch
-            {
-                string notFoundMsg = string.Format(LocalizationService.GetString("Msg_NotFoundCreate"), input);
-                DialogResult dr = MessageBox.Show(notFoundMsg, 
-                    LocalizationService.GetString("Dialog_NotFoundTitle"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (dr == DialogResult.Yes)
-                {
-                    var form = new MaterialCreationForm();
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        await PerformQuery(input); 
-                    }
-                }
-            }
+            await PerformQuery(barcode);
         }
 
         private async void btnInbound_Click(object sender, EventArgs e)
