@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PartsManager.Api.Entities;
 
 namespace PartsManager.Api.Data;
@@ -71,8 +71,8 @@ public class AppDbContext : DbContext
 
         // Seed Initial Stock
         modelBuilder.Entity<Inv_CurrentStock>().HasData(
-            new Inv_CurrentStock { StockID = 1L, MaterialID = 1, WarehouseID = 1, Quantity = 500, LastUpdated = new DateTime(2026, 1, 28, 17, 2, 24) },
-            new Inv_CurrentStock { StockID = 2L, MaterialID = 2, WarehouseID = 1, Quantity = 1000, LastUpdated = new DateTime(2026, 1, 28, 17, 2, 24) }
+            new Inv_CurrentStock { StockID = 1L, MaterialID = 1, WarehouseID = 1, StorageLocation = "A-01", Quantity = 500, LastUpdated = new DateTime(2026, 1, 28, 17, 2, 24) },
+            new Inv_CurrentStock { StockID = 2L, MaterialID = 2, WarehouseID = 1, StorageLocation = "A-02", Quantity = 1000, LastUpdated = new DateTime(2026, 1, 28, 17, 2, 24) }
         );
     }
 }

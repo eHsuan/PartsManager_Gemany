@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,6 +20,9 @@ public class Inv_CurrentStock
 
     [Column(TypeName = "decimal(18,2)")]
     public decimal Quantity { get; set; }
+
+    [MaxLength(100)]
+    public string StorageLocation { get; set; } = string.Empty;
 
     public DateTime LastUpdated { get; set; }
 }

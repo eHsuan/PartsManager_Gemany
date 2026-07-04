@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,6 +39,9 @@ public class Inv_Transactions
 
     [MaxLength(50)]
     public string? OperatorID { get; set; }
+
+    [MaxLength(100)]
+    public string? StorageLocation { get; set; }
 
     public DateTime TransTime { get; set; }
 }
