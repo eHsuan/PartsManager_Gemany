@@ -291,4 +291,5 @@
   <data name="Msg_TriggerRestoreFailed" xml:space="preserve"><value>觸發還原失敗：</value></data>
   <data name="Msg_GeneratePartNoFailed" xml:space="preserve"><value>產生料號失敗：</value></data>
   <data name="Label_StorageLocation" xml:space="preserve"><value>儲位 (Storage Location)</value></data>
+  <data name="Msg_InsufficientStock" xml:space="preserve"><value>該儲位的庫存數量不足！目前庫存：{0:N0}，欲領取：{1:N0}</value></data>
 </root>

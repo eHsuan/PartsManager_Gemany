@@ -100,7 +100,8 @@ public class StockService : IStockService
 
             if (stock == null || stock.Quantity < dto.Quantity)
             {
-                string errMsg = string.Format("Insufficient stock! Current: {0:N0}, Requested: {1:N0}", (stock?.Quantity ?? 0), dto.Quantity);
+                string format = LocalizationService.GetString("Msg_InsufficientStock");
+                string errMsg = string.Format(format, (stock?.Quantity ?? 0), dto.Quantity);
                 throw new InvalidOperationException(errMsg);
             }
 

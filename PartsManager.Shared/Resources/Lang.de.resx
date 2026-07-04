@@ -291,4 +291,5 @@
   <data name="Msg_TriggerRestoreFailed" xml:space="preserve"><value>Wiederherstellung konnte nicht ausgelöst werden: </value></data>
   <data name="Msg_GeneratePartNoFailed" xml:space="preserve"><value>Fehler beim Generieren der Teilenummer: </value></data>
   <data name="Label_StorageLocation" xml:space="preserve"><value>Lagerort</value></data>
+  <data name="Msg_InsufficientStock" xml:space="preserve"><value>Unzureichender Bestand am Lagerort! Aktuell: {0:N0}, Angefordert: {1:N0}</value></data>
 </root>
