@@ -278,10 +278,10 @@ namespace PartsManager.Client
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(1800, 874);
+            this.ClientSize = new System.Drawing.Size(1360, 583);
             this.Controls.Add(this.lblServerStatus);
             this.Controls.Add(this.pnlServerStatus);
             this.Controls.Add(this.cmbWarehouse);
