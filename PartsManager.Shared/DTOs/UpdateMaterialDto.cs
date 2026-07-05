@@ -10,8 +10,7 @@ namespace PartsManager.Shared.DTOs
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public string Specification { get; set; }
+        public string Specification { get; set; } = string.Empty;
 
         public string StorageLocation { get; set; } = string.Empty;
         public string OldStorageLocation { get; set; } = string.Empty;
@@ -23,6 +22,7 @@ namespace PartsManager.Shared.DTOs
         public decimal Price { get; set; }
 
         public string Manufacturer { get; set; }
+        [Required]
         public string ManufacturerNo { get; set; }
 
         public decimal CurrentStock { get; set; }

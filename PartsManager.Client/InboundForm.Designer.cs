@@ -85,7 +85,7 @@ namespace PartsManager.Client
             // 
             this.cmbWarehouse.BackColor = System.Drawing.Color.White;
             this.cmbWarehouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbWarehouse.Font = new System.Drawing.Font("Microsoft JhengHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cmbWarehouse.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cmbWarehouse.ForeColor = System.Drawing.Color.Black;
             this.cmbWarehouse.FormattingEnabled = true;
             this.cmbWarehouse.Location = new System.Drawing.Point(45, 375);
@@ -97,11 +97,11 @@ namespace PartsManager.Client
             // lblStorageLocation
             // 
             this.lblStorageLocation.AutoSize = true;
-            this.lblStorageLocation.Font = new System.Drawing.Font("Microsoft JhengHei", 11F, System.Drawing.FontStyle.Bold);
+            this.lblStorageLocation.Font = new System.Drawing.Font("微軟正黑體", 11F, System.Drawing.FontStyle.Bold);
             this.lblStorageLocation.ForeColor = System.Drawing.Color.Gray;
             this.lblStorageLocation.Location = new System.Drawing.Point(45, 435);
             this.lblStorageLocation.Name = "lblStorageLocation";
-            this.lblStorageLocation.Size = new System.Drawing.Size(200, 28);
+            this.lblStorageLocation.Size = new System.Drawing.Size(258, 28);
             this.lblStorageLocation.TabIndex = 6;
             this.lblStorageLocation.Tag = "Label_StorageLocation";
             this.lblStorageLocation.Text = "儲位 (Storage Location)";
@@ -109,8 +109,7 @@ namespace PartsManager.Client
             // cmbStorageLocation
             // 
             this.cmbStorageLocation.BackColor = System.Drawing.Color.White;
-            this.cmbStorageLocation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            this.cmbStorageLocation.Font = new System.Drawing.Font("Microsoft JhengHei", 14.25F);
+            this.cmbStorageLocation.Font = new System.Drawing.Font("微軟正黑體", 14.25F);
             this.cmbStorageLocation.ForeColor = System.Drawing.Color.Black;
             this.cmbStorageLocation.FormattingEnabled = true;
             this.cmbStorageLocation.Location = new System.Drawing.Point(45, 472);
@@ -158,7 +157,7 @@ namespace PartsManager.Client
             this.lblMaterialName.Location = new System.Drawing.Point(45, 120);
             this.lblMaterialName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMaterialName.Name = "lblMaterialName";
-            this.lblMaterialName.Size = new System.Drawing.Size(1313, 60);
+            this.lblMaterialName.Size = new System.Drawing.Size(1313, 145);
             this.lblMaterialName.TabIndex = 0;
             this.lblMaterialName.Text = "--";
             // 
@@ -168,7 +167,7 @@ namespace PartsManager.Client
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSpecification.Font = new System.Drawing.Font("微軟正黑體", 14.25F);
             this.lblSpecification.ForeColor = System.Drawing.Color.LightGray;
-            this.lblSpecification.Location = new System.Drawing.Point(45, 240);
+            this.lblSpecification.Location = new System.Drawing.Point(45, 332);
             this.lblSpecification.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSpecification.Name = "lblSpecification";
             this.lblSpecification.Size = new System.Drawing.Size(1313, 300);
@@ -267,7 +266,7 @@ namespace PartsManager.Client
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("微軟正黑體", 12F);
             this.label5.ForeColor = System.Drawing.Color.Gray;
-            this.label5.Location = new System.Drawing.Point(45, 195);
+            this.label5.Location = new System.Drawing.Point(45, 287);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(228, 30);

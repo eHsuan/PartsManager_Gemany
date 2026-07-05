@@ -168,8 +168,14 @@ namespace PartsManager.Client
 
                         string mfrNo = columnMap.ContainsKey("ManufacturerNo") ? row.Cell(columnMap["ManufacturerNo"]).GetString().Trim() : "";
 
+                        if (string.IsNullOrEmpty(mfrNo))
+                        {
+                            AppendLog($"[失敗] 料號 {partNo} 品名 {name}: 製造商號碼為必填，不可空白。");
+                            continue;
+                        }
+
                         // 如果料號為空，檢查是否已經為相同製造商號碼產生過料號
-                        string groupKey = !string.IsNullOrEmpty(mfrNo) ? $"MFR|||{mfrNo}" : $"NAME_SPEC|||{name}|||{spec}";
+                        string groupKey = $"MFR|||{mfrNo}";
                         bool isGroupedPartNo = false;
                         if (string.IsNullOrEmpty(partNo) && generatedPartNoMap.ContainsKey(groupKey))
                         {

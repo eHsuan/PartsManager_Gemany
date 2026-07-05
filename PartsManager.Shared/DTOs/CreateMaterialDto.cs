@@ -9,8 +9,7 @@ namespace PartsManager.Shared.DTOs
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public string Specification { get; set; } = "None";
+        public string Specification { get; set; } = string.Empty;
 
         public string StorageLocation { get; set; } = string.Empty;
 
@@ -27,6 +26,7 @@ namespace PartsManager.Shared.DTOs
         public string OperatorID { get; set; } = "SYSTEM";
         
         public string Manufacturer { get; set; }
+        [Required]
         public string ManufacturerNo { get; set; }
 
         public byte SourceType { get; set; } = 1; // 預設 1: Line-Side Purchased

@@ -23,9 +23,8 @@ public class Mdm_Materials
     [MaxLength(200)]
     public string Name { get; set; } = string.Empty;
 
-    [Required]
     [MaxLength(200)]
-    public string Specification { get; set; } = "None";
+    public string Specification { get; set; } = string.Empty;
 
     [MaxLength(100)]
     public string StorageLocation { get; set; } = string.Empty;
@@ -39,6 +38,7 @@ public class Mdm_Materials
     [MaxLength(200)]
     public string Manufacturer { get; set; } = string.Empty;
 
+    [Required]
     [MaxLength(100)]
     public string ManufacturerNo { get; set; } = string.Empty;
 

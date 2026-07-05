@@ -268,6 +268,12 @@ namespace PartsManager.Client
                 return;
             }
 
+            if (string.IsNullOrWhiteSpace(txtManufacturerNo.Text))
+            {
+                MessageBox.Show("請輸入製造商號碼 (Manufacturer No is required)");
+                return;
+            }
+
             if (_materialId.HasValue && string.IsNullOrWhiteSpace(txtPartNo.Text))
             {
                 MessageBox.Show(LocalizationService.GetString("Msg_PartNoRequired"));
