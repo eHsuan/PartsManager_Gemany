@@ -202,7 +202,7 @@ public class InventoryController : ControllerBase
                                  TotalAmount = m.Price * (s != null ? s.Quantity : 0),
                                  LeadTimeDays = m.LeadTimeDays,
                                  Quantity = s != null ? s.Quantity : 0,
-                                 WarehouseName = w != null ? $"{w.WarehouseCode} - {w.WarehouseName}" : "0",
+                                 WarehouseName = w != null ? $"{w.WarehouseCode} - {w.WarehouseName}" : "",
                                  WarehouseId = w != null ? (int?)w.WarehouseID : null,
                                  AttachmentFileNames = _context.Mdm_MaterialAttachments
                                     .Where(a => a.MaterialID == m.MaterialID)
