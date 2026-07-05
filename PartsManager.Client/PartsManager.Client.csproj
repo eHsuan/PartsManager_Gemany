@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <Reference Include="System.Configuration" />
@@ -43,7 +43,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net452</TargetFramework>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>7.3</LangVersion>
     <RuntimeIdentifier>win</RuntimeIdentifier>

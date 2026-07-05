@@ -16,7 +16,7 @@ namespace PartsManager.Client
             I18nHelper.Apply(this);
             _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
 
-            string version = typeof(LoginForm).Assembly.GetName().Version?.ToString(3) ?? "1.1.0";
+            string version = typeof(LoginForm).Assembly.GetName().Version?.ToString(3) ?? "1.2.0";
             this.Text = $"{LocalizationService.GetString("LoginForm")} v{version}";
         }
 
