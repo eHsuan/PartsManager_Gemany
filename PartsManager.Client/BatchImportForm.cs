@@ -166,8 +166,10 @@ namespace PartsManager.Client
                             continue;
                         }
 
-                        // 如果料號為空，檢查是否已經為相同品名與型號產生過料號
-                        string groupKey = $"{name}|||{spec}";
+                        string mfrNo = columnMap.ContainsKey("ManufacturerNo") ? row.Cell(columnMap["ManufacturerNo"]).GetString().Trim() : "";
+
+                        // 如果料號為空，檢查是否已經為相同製造商號碼產生過料號
+                        string groupKey = !string.IsNullOrEmpty(mfrNo) ? $"MFR|||{mfrNo}" : $"NAME_SPEC|||{name}|||{spec}";
                         bool isGroupedPartNo = false;
                         if (string.IsNullOrEmpty(partNo) && generatedPartNoMap.ContainsKey(groupKey))
                         {
