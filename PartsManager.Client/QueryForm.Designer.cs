@@ -323,7 +323,7 @@ namespace PartsManager.Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1800, 900);
+            this.ClientSize = new System.Drawing.Size(1360, 900);
             this.Controls.Add(this.dgvResults);
             this.Controls.Add(this.panelTop);
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
