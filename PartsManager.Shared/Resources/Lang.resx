@@ -126,7 +126,7 @@
   <data name="Label_MachineCode" xml:space="preserve"><value>設備代碼</value></data>
   <data name="Label_MachineName" xml:space="preserve"><value>設備名稱</value></data>
   <data name="Label_ScanBarcode" xml:space="preserve"><value>請掃描條碼：</value></data>
-  <data name="Label_Keyword" xml:space="preserve"><value>關鍵字搜尋 (品名/型號/製造商)：</value></data>
+  <data name="Label_Keyword" xml:space="preserve"><value>關鍵字搜尋：</value></data>
   <data name="Label_DateFrom" xml:space="preserve"><value>日期 從：</value></data>
   <data name="Label_DateTo" xml:space="preserve"><value>至：</value></data>
   <data name="Label_Attachments" xml:space="preserve"><value>附件 (最多 2 個 PDF)</value></data>

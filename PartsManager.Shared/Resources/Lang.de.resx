@@ -126,7 +126,7 @@
   <data name="Label_MachineCode" xml:space="preserve"><value>Code</value></data>
   <data name="Label_MachineName" xml:space="preserve"><value>Name</value></data>
   <data name="Label_ScanBarcode" xml:space="preserve"><value>Barcode scannen:</value></data>
-  <data name="Label_Keyword" xml:space="preserve"><value>Suche (Name/Spez/Hst):</value></data>
+  <data name="Label_Keyword" xml:space="preserve"><value>Suche:</value></data>
   <data name="Label_DateFrom" xml:space="preserve"><value>Von:</value></data>
   <data name="Label_DateTo" xml:space="preserve"><value>Bis:</value></data>
   <data name="Label_Attachments" xml:space="preserve"><value>Anhänge (Max 2 PDF)</value></data>
