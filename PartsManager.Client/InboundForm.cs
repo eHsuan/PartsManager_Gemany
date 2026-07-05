@@ -120,7 +120,7 @@ namespace PartsManager.Client
                 if (info != null)
                 {
                     lblMaterialName.Text = info.Name;
-                    lblSpecification.Text = LocalizationService.GetString("Label_PartNoPrefix") + info.PartNo;
+                    lblSpecification.Text = LocalizationService.GetString("Label_Spec") + info.Specification;
                     
                     lblStatus.Text = LocalizationService.GetString("Status_IdentifySuccess");
                     lblStatus.ForeColor = Color.Lime;
