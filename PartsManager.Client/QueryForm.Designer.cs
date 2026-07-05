@@ -60,7 +60,7 @@ namespace PartsManager.Client
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1800, 105);
+            this.panelTop.Size = new System.Drawing.Size(1360, 105);
             this.panelTop.TabIndex = 0;
             // 
             // btnExport
@@ -321,9 +321,9 @@ namespace PartsManager.Client
             // 
             // QueryForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1360, 900);
+            this.ClientSize = new System.Drawing.Size(1300, 800);
             this.Controls.Add(this.dgvResults);
             this.Controls.Add(this.panelTop);
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
