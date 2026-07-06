@@ -130,6 +130,41 @@ begin
   ServerIPPage.Values[0] := OldIP;
 end;
 
+function NextButtonClick(CurPageID: Integer): Boolean;
+var
+  FindRec: TFindRec;
+  IsEmpty: Boolean;
+begin
+  Result := True;
+  if (CurPageID = wpSelectDir) and (not IsUpgrade) then
+  begin
+    if DirExists(WizardDirValue) then
+    begin
+      IsEmpty := True;
+      if FindFirst(WizardDirValue + '\*', FindRec) then
+      begin
+        try
+          repeat
+            if (FindRec.Name <> '.') and (FindRec.Name <> '..') then
+            begin
+              IsEmpty := False;
+              Break;
+            end;
+          until not FindNext(FindRec);
+        finally
+          FindClose(FindRec);
+        end;
+      end;
+      
+      if not IsEmpty then
+      begin
+        MsgBox('為了避免檔案衝突，全新安裝只能安裝在「空的資料夾」中！' + #13#10 + '請重新選擇一個不存在或空的資料夾。', mbError, MB_OK);
+        Result := False;
+      end;
+    end;
+  end;
+end;
+
 procedure CurStepChanged(CurStep: TSetupStep);
 var
   ConfigPath: string;
