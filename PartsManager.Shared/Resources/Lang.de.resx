@@ -151,6 +151,8 @@
   <data name="Col_TotalAmount" xml:space="preserve"><value>Gesamt</value></data>
   <data name="Col_Warehouse" xml:space="preserve"><value>Lager</value></data>
   <data name="Col_StorageLocation" xml:space="preserve"><value>Lagerplatz</value></data>
+  <data name="Menu_PrintLabel" xml:space="preserve"><value>🖨️ Etikett drucken</value></data>
+  <data name="Msg_PrintSuccess" xml:space="preserve"><value>Druckbefehl für Etikett erfolgreich gesendet!</value></data>
   <data name="Col_Manufacturer" xml:space="preserve"><value>Hersteller</value></data>
   <data name="Col_ManufacturerNo" xml:space="preserve"><value>Hst-Nr</value></data>
   <data name="Col_TransTime" xml:space="preserve"><value>Zeit</value></data>

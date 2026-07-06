@@ -1,0 +1,33 @@
+using System;
+using System.Net.Sockets;
+using System.Text;
+
+public class CabPrinter
+{
+    public void PrintLabel(string printerIp)
+    {
+        try
+        {
+            // CAB 印表機預設的 Raw Port 通常是 9100
+            using (TcpClient client = new TcpClient(printerIp, 9100))
+            using (NetworkStream stream = client.GetStream())
+            {
+                // JScript 原生指令範例 (設定單位、開始排程、印出文字、列印1張)
+                string jscriptCmd = 
+                    "m m\n" +                    // 設定測量單位為毫米 (mm)
+                    "J\n" +                      // 開始工作 (Job)
+                    "T 10,10,0,3,pt 10;\"Hello C#\"\n" + // 在 X:10, Y:10 印出文字
+                    "A 1\n";                     // 列印 1 張 (Amount)
+                
+                // 轉換為 Byte 陣列並傳送
+                byte[] data = Encoding.UTF8.GetBytes(jscriptCmd);
+                stream.Write(data, 0, data.Length);
+            }
+            Console.WriteLine("列印指令已送出！");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("連線或列印失敗: " + ex.Message);
+        }
+    }
+}

@@ -243,9 +243,10 @@ namespace PartsManager.Client
             menuEdit.Available = level <= 2;
             menuDelete.Available = level <= 1;
             menuOutbound.Available = level <= 4;
+            menuPrintLabel.Available = true; // All levels can print
 
             // 只有在完全沒有任何可見項目時才取消開啟
-            bool hasAvailableItems = menuEdit.Available || menuDelete.Available || menuOutbound.Available;
+            bool hasAvailableItems = menuEdit.Available || menuDelete.Available || menuOutbound.Available || menuPrintLabel.Available;
             if (!hasAvailableItems)
             {
                 e.Cancel = true;
@@ -293,6 +294,32 @@ namespace PartsManager.Client
                             MessageBox.Show(LocalizationService.GetString("Msg_DeleteError") + ex.Message, 
                                 LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                    }
+                }
+            }
+        }
+
+        private async void menuPrintLabel_Click(object sender, EventArgs e)
+        {
+            if (dgvResults.SelectedRows.Count > 0)
+            {
+                var material = dgvResults.SelectedRows[0].DataBoundItem as SparePartSearchResultDto;
+                if (material != null)
+                {
+                    try
+                    {
+                        await CabPrinterHelper.PrintLabelAsync(
+                            material.Name, 
+                            material.Specification, 
+                            material.StorageLocation, 
+                            material.PartNo);
+                            
+                        MessageBox.Show(LocalizationService.GetString("Msg_PrintSuccess") ?? "標籤列印成功！",
+                            LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

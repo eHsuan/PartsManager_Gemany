@@ -57,5 +57,16 @@ namespace PartsManager.Client
         public static string Language => _language;
         public static int AutoLogoutMinutes => _autoLogoutMinutes;
         public static int DefaultWarehouseId => _defaultWarehouseId;
+
+        // Label Printer Settings
+        public static string LabelPrinterIP => _ini.Read("Printer", "LabelPrinterIP", "192.168.1.100");
+        public static int LabelPrinterPort 
+        {
+            get
+            {
+                string portStr = _ini.Read("Printer", "LabelPrinterPort", "9100");
+                return int.TryParse(portStr, out int port) ? port : 9100;
+            }
+        }
     }
 }

@@ -44,6 +44,7 @@ namespace PartsManager.Client
             this.menuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOutbound = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPrintLabel = new System.Windows.Forms.ToolStripMenuItem();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.ctxMenu.SuspendLayout();
@@ -293,7 +294,8 @@ namespace PartsManager.Client
             this.ctxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuEdit,
             this.menuDelete,
-            this.menuOutbound});
+            this.menuOutbound,
+            this.menuPrintLabel});
             this.ctxMenu.Name = "ctxMenu";
             this.ctxMenu.Size = new System.Drawing.Size(117, 94);
             this.ctxMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxMenu_Opening);
@@ -321,6 +323,14 @@ namespace PartsManager.Client
             this.menuOutbound.Tag = "Menu_Outbound";
             this.menuOutbound.Text = "領料";
             this.menuOutbound.Click += new System.EventHandler(this.menuOutbound_Click);
+            // 
+            // menuPrintLabel
+            // 
+            this.menuPrintLabel.Name = "menuPrintLabel";
+            this.menuPrintLabel.Size = new System.Drawing.Size(116, 30);
+            this.menuPrintLabel.Tag = "Menu_PrintLabel";
+            this.menuPrintLabel.Text = "列印標籤";
+            this.menuPrintLabel.Click += new System.EventHandler(this.menuPrintLabel_Click);
             // 
             // QueryForm
             // 
@@ -354,6 +364,7 @@ namespace PartsManager.Client
         private System.Windows.Forms.ToolStripMenuItem menuEdit;
         private System.Windows.Forms.ToolStripMenuItem menuDelete;
         private System.Windows.Forms.ToolStripMenuItem menuOutbound;
+        private System.Windows.Forms.ToolStripMenuItem menuPrintLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Spec;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_PartNo;
