@@ -158,7 +158,7 @@ begin
       
       if not IsEmpty then
       begin
-        MsgBox('為了避免檔案衝突，全新安裝只能安裝在「空的資料夾」中！' + #13#10 + '請重新選擇一個不存在或空的資料夾。', mbError, MB_OK);
+        MsgBox('To prevent file conflicts, a fresh installation must be placed in an empty folder.' + #13#10 + 'Please select an empty or non-existent folder.', mbError, MB_OK);
         Result := False;
       end;
     end;
