@@ -28,16 +28,36 @@ namespace PartsManager.Client
                 // T x,y,rotation,font,size;text
                 // B x,y,rotation,barcode_type,height,narrow_bar_width;data
                 // A 1 : Print 1 quantity
-                
-                string jscript = 
+
+                //string jscript = 
+                //    "m m\n" +
+                //    "J\n" +
+                //    "S l1;0,0,20,23,60\n" +
+                //    $"T 5,5,0,3,pt 12;\"品名: {name}\"\n" +
+                //    $"T 5,12,0,3,pt 12;\"規格: {spec}\"\n" +
+                //    $"T 5,19,0,3,pt 12;\"儲位: {location}\"\n" +
+                //    $"B 5,26,0,CODE128,8,0.3;\"{partNo}\"\n" +
+                //    $"T 5,36,0,3,pt 10;\"{partNo}\"\n" +
+                //    "A 1\n";
+
+                string safeName = name?.Replace("\r", "").Replace("\n", " ") ?? "";
+                string safeSpec = spec?.Replace("\r", "").Replace("\n", " ") ?? "";
+                string safeLocation = location?.Replace("\r", "").Replace("\n", " ") ?? "";
+                string safePartNo = partNo?.Replace("\r", "").Replace("\n", " ") ?? "";
+
+                string jscript =
                     "m m\n" +
                     "J\n" +
-                    "S l1;0,0,68,40\n" +
-                    $"T 5,5,0,3,pt 12;品名: {name}\n" +
-                    $"T 5,12,0,3,pt 12;規格: {spec}\n" +
-                    $"T 5,19,0,3,pt 12;儲位: {location}\n" +
-                    $"B 5,26,0,CODE128,8,0.3;{partNo}\n" +
-                    $"T 5,36,0,3,pt 10;{partNo}\n" +
+                    "S l1;0,0,20,23,60\n" +
+                    $"T 4,2,0,3,pt 6;{safeName}\n" +
+                    // -- 上半部：條碼 (從最左邊 X=4 開始，高度設為 7mm，線條 0.25) --
+                    $"B 4,3,0,CODE128,7,0.25;{safePartNo}\n" +
+
+                    // -- 下半部：文字 (分成左右兩塊來顯示，避免擠在一起) --
+                    $"T 3,13,0,3,pt 6;{safePartNo}\n" +
+                    
+                    $"T 30,13,0,3,pt 6;Lagerplatz:{safeLocation}\n" +
+                    $"T 3,16,0,3,pt 6;{safeSpec}\n" +
                     "A 1\n";
 
                 using (var client = new TcpClient())
