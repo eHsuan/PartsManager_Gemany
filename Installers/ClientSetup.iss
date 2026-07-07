@@ -2,11 +2,11 @@
 ; 建立固定的 AppId 以便偵測既有安裝
 AppId={{990A738B-309F-40EF-A44D-B177CF1F7D9D}
 AppName=PartsManager Client
-AppVersion=1.3.0
+AppVersion=1.3.1
 DefaultDirName={commonpf}\PartsManager\Client
 DefaultGroupName=PartsManager Client
 OutputDir=Output
-OutputBaseFilename=PartsManager_Client_Setup_v130
+OutputBaseFilename=PartsManager_Client_Setup_v131
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin

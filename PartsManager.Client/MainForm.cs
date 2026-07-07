@@ -61,7 +61,7 @@ namespace PartsManager.Client
         {
             I18nHelper.Apply(this);
             BuildNavigation();
-            string version = typeof(MainForm).Assembly.GetName().Version?.ToString(3) ?? "1.3.0";
+            string version = typeof(MainForm).Assembly.GetName().Version?.ToString(3) ?? "1.3.1";
             this.Text = $"{LocalizationService.GetString("App_Title")} v{version} - {UserSession.Username}";
         }
 
