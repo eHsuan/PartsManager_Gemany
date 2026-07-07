@@ -85,7 +85,13 @@ namespace PartsManager.Client
                 //    }
                 //}
 
-                // 3. 透過 USB (Windows Spooler) 傳送指令
+                // 3. 先檢查印表機是否離線 (USB 拔除等)
+                if (RawPrinterHelper.IsPrinterOffline(printerName))
+                {
+                    throw new Exception("印表機目前為離線狀態，請檢查 USB 連線與電源！");
+                }
+
+                // 4. 透過 USB (Windows Spooler) 傳送指令
                 // 為了不卡住 UI，包裝成非同步執行
                 bool printResult = await Task.Run(() =>
                 {

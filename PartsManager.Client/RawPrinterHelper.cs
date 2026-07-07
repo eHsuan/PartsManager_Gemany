@@ -1,14 +1,52 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Management;
 
 namespace PartsManager.Client
 {
     public class RawPrinterHelper
     {
+        /// <summary>
+        /// 檢查印表機是否處於離線或錯誤狀態
+        /// </summary>
+        public static bool IsPrinterOffline(string printerName)
+        {
+            try
+            {
+                string query = $"SELECT * FROM Win32_Printer WHERE Name = '{printerName.Replace("\\", "\\\\")}'";
+                using (var searcher = new ManagementObjectSearcher(query))
+                {
+                    foreach (ManagementObject printer in searcher.Get())
+                    {
+                        // 檢查 WorkOffline 屬性 (被手動設為離線，或 Windows 偵測到斷線)
+                        if (printer["WorkOffline"] != null && (bool)printer["WorkOffline"])
+                        {
+                            return true;
+                        }
+                        
+                        // 檢查 PrinterStatus (1=Other, 2=Unknown, 3=Idle, 4=Printing, 5=Warmup, 6=Stopped, 7=Offline)
+                        if (printer["PrinterStatus"] != null)
+                        {
+                            int status = Convert.ToInt32(printer["PrinterStatus"]);
+                            if (status == 7 || status == 6 || status == 1 || status == 2) 
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch 
+            { 
+                // 若 WMI 查詢失敗，預設放行讓 Windows Spooler 去處理
+            }
+            return false;
+        }
+
         // --- Windows API 宣告 ---
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public class DOCINFOA
