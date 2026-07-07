@@ -22,6 +22,15 @@ namespace PartsManager.Client
                     throw new Exception("標籤機 IP 未設定 (config.ini [Printer] LabelPrinterIP)");
                 }
 
+                // 原本讀 IP，現在改讀 Windows 印表機名稱
+                // 例如從設定檔讀取： string printerName = "cab EOS5/300";
+                string printerName = GlobalSettings.PrinterName;
+
+                if (string.IsNullOrEmpty(printerName))
+                {
+                    throw new Exception("印表機名稱未設定");
+                }
+
                 // JScript for cab EOS5
                 // m m : Unit in millimeters
                 // J : Start job
@@ -60,22 +69,36 @@ namespace PartsManager.Client
                     $"T 3,16,0,3,pt 6;{safeSpec}\n" +
                     "A 1\n";
 
-                using (var client = new TcpClient())
-                {
-                    // 2 seconds timeout for connection
-                    var connectTask = client.ConnectAsync(ip, port);
-                    if (await Task.WhenAny(connectTask, Task.Delay(2000)) != connectTask)
-                    {
-                        throw new Exception("連線標籤機超時，請確認 IP 與網路連線狀態。");
-                    }
+                //using (var client = new TcpClient())
+                //{
+                //    // 2 seconds timeout for connection
+                //    var connectTask = client.ConnectAsync(ip, port);
+                //    if (await Task.WhenAny(connectTask, Task.Delay(2000)) != connectTask)
+                //    {
+                //        throw new Exception("連線標籤機超時，請確認 IP 與網路連線狀態。");
+                //    }
 
-                    using (var stream = client.GetStream())
-                    {
-                        byte[] data = Encoding.UTF8.GetBytes(jscript);
-                        await stream.WriteAsync(data, 0, data.Length);
-                    }
+                //    using (var stream = client.GetStream())
+                //    {
+                //        byte[] data = Encoding.UTF8.GetBytes(jscript);
+                //        await stream.WriteAsync(data, 0, data.Length);
+                //    }
+                //}
+
+                // 3. 透過 USB (Windows Spooler) 傳送指令
+                // 為了不卡住 UI，包裝成非同步執行
+                bool printResult = await Task.Run(() =>
+                {
+                    return RawPrinterHelper.SendStringToPrinter(printerName, jscript);
+                });
+
+                if (!printResult)
+                {
+                    throw new Exception("傳送至印表機失敗，請確認 USB 連線與印表機名稱是否正確。");
                 }
                 return true;
+
+
             }
             catch (Exception ex)
             {

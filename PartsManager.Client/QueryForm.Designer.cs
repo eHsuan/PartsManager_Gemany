@@ -59,18 +59,18 @@ namespace PartsManager.Client
             this.panelTop.Controls.Add(this.lblKeyword);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.panelTop.Margin = new System.Windows.Forms.Padding(10, 15, 10, 15);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1749, 201);
+            this.panelTop.Size = new System.Drawing.Size(1924, 113);
             this.panelTop.TabIndex = 0;
             // 
             // btnExport
             // 
             this.btnExport.Font = new System.Drawing.Font("微軟正黑體", 12F);
-            this.btnExport.Location = new System.Drawing.Point(1274, 55);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.btnExport.Location = new System.Drawing.Point(1027, 16);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(10, 15, 10, 15);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(297, 91);
+            this.btnExport.Size = new System.Drawing.Size(246, 59);
             this.btnExport.TabIndex = 4;
             this.btnExport.Tag = "Btn_ExportExcel";
             this.btnExport.Text = "匯出 Excel";
@@ -80,10 +80,10 @@ namespace PartsManager.Client
             // btnShowAll
             // 
             this.btnShowAll.Font = new System.Drawing.Font("微軟正黑體", 12F);
-            this.btnShowAll.Location = new System.Drawing.Point(943, 55);
-            this.btnShowAll.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.btnShowAll.Location = new System.Drawing.Point(777, 15);
+            this.btnShowAll.Margin = new System.Windows.Forms.Padding(10, 15, 10, 15);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(297, 91);
+            this.btnShowAll.Size = new System.Drawing.Size(230, 61);
             this.btnShowAll.TabIndex = 3;
             this.btnShowAll.Tag = "Btn_ShowAll";
             this.btnShowAll.Text = "顯示全部";
@@ -93,10 +93,10 @@ namespace PartsManager.Client
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
-            this.btnSearch.Location = new System.Drawing.Point(662, 55);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.btnSearch.Location = new System.Drawing.Point(568, 15);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(10, 15, 10, 15);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(248, 91);
+            this.btnSearch.Size = new System.Drawing.Size(189, 63);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Tag = "Btn_Search";
             this.btnSearch.Text = "🔍 查詢";
@@ -106,10 +106,10 @@ namespace PartsManager.Client
             // txtSearchKeyword
             // 
             this.txtSearchKeyword.Font = new System.Drawing.Font("微軟正黑體", 12F);
-            this.txtSearchKeyword.Location = new System.Drawing.Point(243, 78);
-            this.txtSearchKeyword.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.txtSearchKeyword.Location = new System.Drawing.Point(192, 26);
+            this.txtSearchKeyword.Margin = new System.Windows.Forms.Padding(10, 15, 10, 15);
             this.txtSearchKeyword.Name = "txtSearchKeyword";
-            this.txtSearchKeyword.Size = new System.Drawing.Size(325, 39);
+            this.txtSearchKeyword.Size = new System.Drawing.Size(356, 39);
             this.txtSearchKeyword.TabIndex = 1;
             this.txtSearchKeyword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearchKeyword_KeyDown);
             // 
@@ -117,8 +117,8 @@ namespace PartsManager.Client
             // 
             this.lblKeyword.AutoSize = true;
             this.lblKeyword.Font = new System.Drawing.Font("微軟正黑體", 11F);
-            this.lblKeyword.Location = new System.Drawing.Point(30, 96);
-            this.lblKeyword.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblKeyword.Location = new System.Drawing.Point(37, 31);
+            this.lblKeyword.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.lblKeyword.Name = "lblKeyword";
             this.lblKeyword.Size = new System.Drawing.Size(144, 28);
             this.lblKeyword.TabIndex = 0;
@@ -149,14 +149,14 @@ namespace PartsManager.Client
             this.Col_Att2});
             this.dgvResults.ContextMenuStrip = this.ctxMenu;
             this.dgvResults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvResults.Location = new System.Drawing.Point(0, 201);
-            this.dgvResults.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.dgvResults.Location = new System.Drawing.Point(0, 113);
+            this.dgvResults.Margin = new System.Windows.Forms.Padding(10, 15, 10, 15);
             this.dgvResults.Name = "dgvResults";
             this.dgvResults.ReadOnly = true;
             this.dgvResults.RowHeadersWidth = 62;
             this.dgvResults.RowTemplate.Height = 28;
             this.dgvResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvResults.Size = new System.Drawing.Size(1749, 969);
+            this.dgvResults.Size = new System.Drawing.Size(1924, 1057);
             this.dgvResults.TabIndex = 1;
             this.dgvResults.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvResults_CellMouseDown);
             // 
@@ -336,10 +336,10 @@ namespace PartsManager.Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1749, 1170);
+            this.ClientSize = new System.Drawing.Size(1924, 1170);
             this.Controls.Add(this.dgvResults);
             this.Controls.Add(this.panelTop);
-            this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.Margin = new System.Windows.Forms.Padding(10, 15, 10, 15);
             this.Name = "QueryForm";
             this.Tag = "QueryForm";
             this.Text = "物料庫存查詢";

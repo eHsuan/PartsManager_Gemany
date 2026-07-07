@@ -14,6 +14,7 @@ namespace PartsManager.Client
         private static string _serverIP;
         private static string _serverPort;
         private static int _defaultWarehouseId;
+        private static string printerName;
 
         static GlobalSettings()
         {
@@ -66,6 +67,14 @@ namespace PartsManager.Client
             {
                 string portStr = _ini.Read("Printer", "LabelPrinterPort", "9100");
                 return int.TryParse(portStr, out int port) ? port : 9100;
+            }
+        }
+        public static string PrinterName
+        {
+            get
+            {
+                string printerName = _ini.Read("Printer", "PrinterName", "");
+                return printerName;
             }
         }
     }

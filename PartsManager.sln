@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.11925.98 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartsManager.Api", "PartsManager.Api\PartsManager.Api.csproj", "{D9049802-E27E-431C-A306-5A0832B2DA7A}"
 EndProject
@@ -59,5 +58,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47F333E4-441A-4C17-8E65-8820815E60F8}
+	EndGlobalSection
 EndGlobal
-
