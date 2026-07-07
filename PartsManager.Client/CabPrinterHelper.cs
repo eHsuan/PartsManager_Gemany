@@ -88,7 +88,7 @@ namespace PartsManager.Client
                 // 3. 先檢查印表機是否離線 (USB 拔除等)
                 if (RawPrinterHelper.IsPrinterOffline(printerName))
                 {
-                    throw new Exception("印表機目前為離線狀態，請檢查 USB 連線與電源！");
+                    throw new Exception(PartsManager.Shared.Resources.LocalizationService.GetString("Msg_PrinterOffline"));
                 }
 
                 // 4. 透過 USB (Windows Spooler) 傳送指令
@@ -100,7 +100,7 @@ namespace PartsManager.Client
 
                 if (!printResult)
                 {
-                    throw new Exception("傳送至印表機失敗，請確認 USB 連線與印表機名稱是否正確。");
+                    throw new Exception(PartsManager.Shared.Resources.LocalizationService.GetString("Msg_PrinterSendFailed"));
                 }
                 return true;
 

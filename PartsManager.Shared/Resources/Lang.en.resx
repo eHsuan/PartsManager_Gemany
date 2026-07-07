@@ -294,4 +294,6 @@
   <data name="Menu_PrintLabel" xml:space="preserve"><value>🖨️ Print Label</value></data>
   <data name="Msg_PrintSuccess" xml:space="preserve"><value>Label print command sent successfully!</value></data>
   <data name="Msg_InsufficientStock" xml:space="preserve"><value>Insufficient stock! Current: {0:N0}, Requested: {1:N0}</value></data>
+  <data name="Msg_PrinterOffline" xml:space="preserve"><value>The printer is currently offline. Please check the USB connection and power!</value></data>
+  <data name="Msg_PrinterSendFailed" xml:space="preserve"><value>Failed to send to the printer. Please verify the USB connection and printer name.</value></data>
 </root>

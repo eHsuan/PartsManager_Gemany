@@ -294,4 +294,8 @@
   <data name="Msg_GeneratePartNoFailed" xml:space="preserve"><value>Fehler beim Generieren der Teilenummer: </value></data>
   <data name="Label_StorageLocation" xml:space="preserve"><value>Lagerort</value></data>
   <data name="Msg_InsufficientStock" xml:space="preserve"><value>Unzureichender Bestand am Lagerort! Aktuell: {0:N0}, Angefordert: {1:N0}</value></data>
+  <data name="Menu_PrintLabel" xml:space="preserve"><value>🖨️ Etikett drucken</value></data>
+  <data name="Msg_PrintSuccess" xml:space="preserve"><value>Etikettendruckbefehl erfolgreich gesendet!</value></data>
+  <data name="Msg_PrinterOffline" xml:space="preserve"><value>Der Drucker ist derzeit offline. Bitte überprüfen Sie die USB-Verbindung und die Stromversorgung!</value></data>
+  <data name="Msg_PrinterSendFailed" xml:space="preserve"><value>Senden an den Drucker fehlgeschlagen. Bitte überprüfen Sie die USB-Verbindung und den Druckernamen.</value></data>
 </root>

@@ -294,4 +294,6 @@
   <data name="Msg_InsufficientStock" xml:space="preserve"><value>該儲位的庫存數量不足！目前庫存：{0:N0}，欲領取：{1:N0}</value></data>
   <data name="Menu_PrintLabel" xml:space="preserve"><value>🖨️ 列印標籤</value></data>
   <data name="Msg_PrintSuccess" xml:space="preserve"><value>標籤列印指令已成功送出至印表機！</value></data>
+  <data name="Msg_PrinterOffline" xml:space="preserve"><value>印表機目前為離線狀態，請檢查 USB 連線與電源！</value></data>
+  <data name="Msg_PrinterSendFailed" xml:space="preserve"><value>傳送至印表機失敗，請確認 USB 連線與印表機名稱是否正確。</value></data>
 </root>
